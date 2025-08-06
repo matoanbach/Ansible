@@ -101,3 +101,40 @@ fileservers
 - `ansible -i inventory all --list-hosts`
 - `ansible -i inventory file --list-hosts`
 - `ansible-navigator inventory -i inventory -m stdout --list`
+
+# 2.6 Creating ansible.cfg
+- Different connection settings can be specified in ansible.cfg
+- If the file `/etc/ansible/ansible.cfg` exists, it will be used
+- If an ansible.cfg file exists in the current project directory, that will be used and all settings in `/etc/ansible/ansible.cfg` are ignored
+- Use `ansible --version` to see which ansible.cfg will be used
+- If a playbook contains settings, they will override the settings from ansible.cfg
+
+## Understanding ansible.cfg
+- Settings in ansible.cfg are organized in two (or more) sections
+  - `[defaults]` sets default settings
+  - `[privilege_escalation]` specifies how Ansible runs commands on managed hosts
+- The following settings are used:
+  - `inventory` specifies the path to the inventory file
+  - `remote_user` is the name of the user that logs in on the remote hosts
+  - `ask_pass` specifies whether or not to prompt for a password
+  - `become` indicates if you want to automatically switch to the become_user
+  - `become_user` specifies the target remote user
+
+## Connecting to the Remote Hosts
+- The default protocol to connect to the remote host is SSH
+  - Key-based authentication is the common approach, but password-based authentication is possible as well
+  - Use `ssh-keygen` to generate a public/private SSH key pair, and next use `ssh-copy-id` to copy the public key over to the managed hosts
+- Other connection methods are available, to manage Windows for instance, ise `ansible_conection: winrm` and set `ansible_port: 5986`
+
+## Escalating Privilegs
+- `sudo` is the default machanism for privilege escalation
+- Password-less escalation is OK on the RHCE exam, but insured and not recommended in real world
+- To set up password-less sudo, create a drop-in file in `/etc/sudoers.d/` with the following contents:
+  - `ansible ALL=(ALL) NOPASSWD: ALL`
+- To securely escalate privileges using passwords, add the following to `/etc/sudoers`:
+  - `Defaults timestamp_type=global,timestamp_timeout=60` 
+
+## Understanding Localhost Connections
+- Ansible has an implicit localhost entry to run Ansible commands on the localhost
+- When connecting to localhost, the default `become` settings are not used, but the account that ran the Ansible command is used
+- Ensure this account has been configured with the appropriate `sudo` privileges
