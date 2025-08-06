@@ -33,3 +33,19 @@
 4. Use `sudo dnf install ansible-core -y` to install the Ansible software
 5. Use `sudo dnf install ansible-navigator -y` to install Ansible Navigator
 6. `ansible --version` to verify
+
+# 2.4 Using Ansible to Set up Managed Nodes
+```bash
+cat >> inventory >> EOF
+    ansible1
+    ansible2
+    EOF
+
+ssh ansible1 # to create a finger print 
+ssh ansible2 # to create a finger print
+ansible -i inventory all -u student -k -b -K -m user -a "name=ansible"
+ansible -i inventory all -u student -k -b -K -m shell -a "echo password | passwd --stdin ansible"
+ssh-keygen # (for user student, as well as for user ansible)
+for i in ansible1 ansible2; do ssh-copy-id $i; done # (user student & ansible)
+ansible -i inventory all -u ansible -b -m command -a "ls -l /root" -K
+ansible -i inventory all -u student -k -b -m shell -a 'echo "ansible ALL=(ALL) NOPASSWD:ALL"' > /etc/sudoers.d/ansible
