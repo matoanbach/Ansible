@@ -15,3 +15,13 @@
 - Managed nodes can be anything: servers running RHEL, but also other Linux distributions, Windows, Network Devices, and much more
 - For RHCE 9, you'll need 2 managed nodes pre-installed with RHEL 9 or CentOS Stream
 - Ensure host name lookup is configured, `/etc/hosts` is good enough
+
+# 2.2 Understanding Required Components
+- To use Ansible, the following is needed:
+  - Host name resolution to address managed hosts by name
+  - Python on all nodes
+  - SSH running on the managed servers
+  - A dedicated user account with sudo privileges
+  - Optional: SSH jeys to make logging in esier
+  - An inventory to identify managed nodes on the control node
+  - Optional: an ansible.cfg to specify default parameters
