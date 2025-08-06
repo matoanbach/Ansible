@@ -49,3 +49,55 @@ ssh-keygen # (for user student, as well as for user ansible)
 for i in ansible1 ansible2; do ssh-copy-id $i; done # (user student & ansible)
 ansible -i inventory all -u ansible -b -m command -a "ls -l /root" -K
 ansible -i inventory all -u student -k -b -m shell -a 'echo "ansible ALL=(ALL) NOPASSWD:ALL"' > /etc/sudoers.d/ansible
+```
+
+# 2.5 Managing Static Inventory
+## Managin Static Inventory
+- In a minimal form, a static inventory is a list of host names and/or IP addresses that can be managed by Ansible
+- Hosts can be grouped in inventory to make it easy to address multiple hosts at once
+- A host can be a member of multiple groups
+- Nested groups are also available
+- It is common to work with project-based inventory files
+- Variables can be set from the inventory file - but this is deprecated practice.
+- Ranges can be used:
+  - server[1:20] matches server1 up to server20
+  - 192.168.[4:5].[0:255] matches two full class C subnets
+
+## Inventory Files Locations
+- `/etc/ansible/hosts` is the default inventory
+- Alternative inventory location can be specified through the ansible.cfg configuration file
+- Or use the `-i inventory` option to specify the location of the inventory file to use
+- It is common practice to put the inventory file in the current project director option to specify the location of the inventory file to use
+- It is common practice to put the inventory file in the current project directory
+
+## Static Inventory Example
+```yaml
+[webservers]
+web[1:9].example.com
+web12.example.com
+
+[fileservers]
+file1.example.com
+file2.example.com
+
+[servers:children]
+webservers
+fileservers
+```
+
+## Host Groups Usage
+- Functional host groups
+  - web
+  - lamp
+- Regional host groups
+  - europe
+  - africa
+- Staging host groups
+  - test
+  - development
+  - production
+
+## Testing Inventory
+- `ansible -i inventory all --list-hosts`
+- `ansible -i inventory file --list-hosts`
+- `ansible-navigator inventory -i inventory -m stdout --list`
