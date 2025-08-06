@@ -25,3 +25,11 @@
   - Optional: SSH jeys to make logging in esier
   - An inventory to identify managed nodes on the control node
   - Optional: an ansible.cfg to specify default parameters
+
+# 2.3 Installing Ansible on the Control Node
+1. On the control node: use `sudo subscription-manager repos --list` to verify the name of the latest available repository
+2. Use `sudo subscription-manager repos --enable=rhel-9-for-x86_64-appstream.rpms` to enable the repository
+3. `sudo subscription-manager repos --enable ansible-automation-platform-2.2-for-rhel-9-x86_64-rpms`
+4. Use `sudo dnf install ansible-core -y` to install the Ansible software
+5. Use `sudo dnf install ansible-navigator -y` to install Ansible Navigator
+6. `ansible --version` to verify
