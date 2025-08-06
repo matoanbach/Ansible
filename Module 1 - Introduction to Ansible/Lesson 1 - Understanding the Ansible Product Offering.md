@@ -12,3 +12,13 @@
 - It uses no agents
 - You can use Ansible to manage a wide range of different platforms
 
+# 1.2 Understanding Community Ansible Solutions
+## Coomunities
+- Ansible core is open-source software, provided through `https://github.com/ansible/ansible`
+- Ansible core provides essential modules only
+- Ansible modules are provided through collections on `https://galaxy.ansible.com`
+- Ansible AWX is open-source software, provided through `https://github.com/ansible/awx` that offers the following:
+  - A web-based user interface
+  - A REST API
+  - A task engine 
+- **ansible-navigator** is text-based user interface for Ansible.
