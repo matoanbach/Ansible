@@ -163,3 +163,6 @@ collections:
 - `ansible ansible1 -m user -a "name=linda"`
 
 # 3.8 Using docs.ansible.com
+- Ansible documentation is provided on docs.ansible.com
+- It may be a bit hard to find what you need, as the documentation is focused on Automation Platform
+- The best resource for documentation about Ansible Core is under the Core button on this website
