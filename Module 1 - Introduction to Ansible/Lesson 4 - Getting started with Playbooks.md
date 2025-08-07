@@ -71,3 +71,13 @@
 
 
 # 4.4 Using Multiple-Play Playbooks
+## Understanding Plays
+- A playbook can contain multiple plays
+- A play is a series of tasks that are executed against selected hosts from the inventory, using specific credentials
+- Using multiple plays allows running tasks on different hosts, using different credentials from the same playbook
+- Withing a play defintion, escalation parameters can be defined:
+  - `remote_user`: the name of the remote user
+  - `become`: to enable or disable privilege escalation
+  - `become_method`: to allow using an alternative escalation solution
+  - `become_user`: the target user used for privilege escalation
+- When these parameters are used at a more specific level, they will overwrite the more generic setting
