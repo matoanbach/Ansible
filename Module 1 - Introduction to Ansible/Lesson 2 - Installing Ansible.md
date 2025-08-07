@@ -28,7 +28,7 @@
 
 # 2.3 Installing Ansible on the Control Node
 1. On the control node: use `sudo subscription-manager repos --list` to verify the name of the latest available repository
-2. Use `sudo subscription-manager repos --enable=rhel-9-for-x86_64-appstream.rpms` to enable the repository
+2. Use `sudo subscription-manager repos --enable=rhel-9-for-x86_64-appstream-rpms` to enable the repository
 3. `sudo subscription-manager repos --enable ansible-automation-platform-2.2-for-rhel-9-x86_64-rpms`
 4. Use `sudo dnf install ansible-core -y` to install the Ansible software
 5. Use `sudo dnf install ansible-navigator -y` to install Ansible Navigator
@@ -170,3 +170,48 @@ ansible-navigator:
     playbook-artifact:
         enable: false
 ```
+
+# Lesson 2 Lab: Setting up a Managed Environment
+- Finalize setting up the Ansible managed environment and ensure you setup meets the following requirements:
+  - User Ansible is used for all management tasks on managed hosts
+  - Inventory is set up
+  - Ansible.cfg is configured for sudo privilege escalation
+  - SSH key-based login is configured
+
+```yaml
+    1  ssh ansible1
+    2  ssh ansible2
+    3  clear
+    4  cat >> inventory << EOF
+ansible1
+ansible2
+EOF
+
+    5  ansible all -m command -a "ls -l /root"
+    6  cat inventory 
+    7  ansible --version
+    8  ansible -i inventory all -m c command -a "ls -l /root"
+    9  ansible -i inventory all -m  command -a "ls -l /root"
+   10* 
+   11  ssh ansible@ansible1
+   12  ansible -i inventory -m command -a "ls -l /root"
+   13  ansible -i inventory all -m command -a "ls -l /root"
+   14  ssh-keygen 
+   15  for i in ansible1 ansible2; do ssh-copy-id $i; done
+   16  clear
+   17  ansible -i inventory all -m command -a "ls -l /root"
+```
+
+- ansible.cfg:
+    ```yaml
+    [defaults]
+    inventory = inventory
+    remote_user = ansible
+    ask_pass = false
+
+    [privilege_escalation]
+    become = true
+    become_method = sudo
+    become_user = root
+    become_pass = false
+    ```
