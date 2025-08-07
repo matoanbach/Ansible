@@ -128,6 +128,25 @@ collections:
 ```
 
 # 3.5 ansible-navigator
+## Using Collections in Navigator
+- The `ee-supported-rhel8` default execution environment comes with a set of common collections
+- From `ansible-navigator`, use `:collections` to show collections that are currently available
+- To install collections and make them available in `ansible-navigator`, use `ansible-galaxy collection install -p collections` as described before.
+
+
 # 3.6 Exploring Essential Modules
+## Essential Modules
+- `ansible.builtin.ping`: verifies host availability
+  - `ansible all -m ping`
+- `ansible.builtin.service`: checks if a service is currently running
+  - `ansible all -m service -a "name=httpd state=started"`
+- `ansible.builtin.command`: runs any command, but not through a shell
+  - `ansible all -m command -a "/sbin/reboot -t now"`
+- `ansible.builtin.shell`: run arbitrary commands through a shell
+  - `ansible all -m shell -a set`
+- `ansible.builtin.raw`: runs a command on a remote host without a need for python
+- `ansible.builtin.copy`: copies a file to the managed host
+  - `ansible all -m copy -a 'content="hello world" dest=/etc/motd'`
+
 # 3.7 Idempotency
 # 3.8 Using docs.ansible.com
