@@ -65,7 +65,68 @@
 ```
 
 # 3.3 Installing Content Collections
+## Collections
+- Regardless of whether you're using just Ansible Core, or `ansible-navigator` in AAP, you'll always have access to one content collection: `ansible.builtin`
+- To get access to more collections, you may want to define and use a custom execution environment (which is not a part of the EX294 objectives)
+- Collections are provided through Ansible Galaxy or Ansible Automation Platform 
+
+## Installing collections
+- Use `ansible-galaxy collection install my.collection -p collections` to install new collections
+- While installing collections, use the `-p collections` option to tell the execution environment in which directory the collection is available.
+- Without the `-p path` option, the collection is installed in the default `collections_path`, which is `~/.ansible/collections:/usr/share/ansible/collections`
+- This default `collections_path` works with the `ansible` and `ansible-playbook` commands, but is not available from within the `ansible-navigator` execution environment
+- Using the `-p collections` option, ensures that the collection will always be found, as this directory will always be search first, even if not specified in the `collections_path` 
+
+## Installing Collections from Different Locations
+- Collection can be installed from different locations:
+  - Form Galaxy: Use `ansible-galaxy collection install my.collection -p collections`
+  - From a tar ball: Use `ansible-galaxy collection install /my/collection.tar.gz -p collections`
+  - From a URL: Use `ansible-galaxy collection install https://my.example.local/my.collection.tar.gz -p collections`
+  - From Git: Use `ansible-galaxy collection install git@git.example.local:mygitaccount/mycollection.git -p collections` 
+
+## Demo: Using Collections:
+- `ansible-galaxy collection install community.crypto -p collections`
+    ```bash
+    [ansible@control ~]$ ansible-galaxy collection install community.crypto -p collections
+    Starting galaxy collection install process
+    [WARNING]: The specified collections path '/home/ansible/collections' is not part of the configured Ansible
+    collections paths '/home/ansible/.ansible/collections:/usr/share/ansible/collections'. The installed collection
+    will not be picked up in an Ansible run, unless within a playbook-adjacent collections directory.
+    Process install dependency map
+    Starting collection install process
+    Downloading https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-crypto-3.0.3.tar.gz to /home/ansible/.ansible/tmp/ansible-local-39963alaa9o6g/tmpv132m9s4/community-crypto-3.0.3-r3wgtn99
+    Installing 'community.crypto:3.0.3' to '/home/ansible/collections/ansible_collections/community/crypto'
+    community.crypto:3.0.3 was installed successfully
+    [ansible@control ~]$ 
+    ```
+- `ansible-galaxy collection list`
+- `ansible-navigator`
+  - `:collections`
+- Edit ansible.cfg to include the following
+  - `collections_path=./collections`
+- `ansible-galaxy collection list`
+- Change the ansible.cfg collection path to the following
+  - `collections_path=./collections:~/.ansible/collections:/usr/share/ansible/collections`
+- `ansible-galaxy collection list`
+
 # 3.4 Using requirements.yml
+## collections/requirements.yml
+- A requirements.yml can be provided in the current project directory to list all collections that are needed in the project
+- It lists all required collections, and installs them using `ansible-galaxy collections install -r collections/requirements.yml -p collections`
+- Don't forget the `-p collections` option, or else the collection won't be found by `ansible-navigator`
+
+## Example collections/requirements.yml
+```yaml
+collections:
+    - name: community.aws
+    - name: ansible.posix
+        version: 1.2.1
+    - name: /tmp/my-collection.tar.gz
+    - name: https://www.example.local/my-collection.tar.gz
+    - name: git+https://github.com/ansible-collections/community.general.git
+        version: main
+```
+
 # 3.5 ansible-navigator
 # 3.6 Exploring Essential Modules
 # 3.7 Idempotency
