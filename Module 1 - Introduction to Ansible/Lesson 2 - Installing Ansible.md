@@ -138,3 +138,35 @@ fileservers
 - Ansible has an implicit localhost entry to run Ansible commands on the localhost
 - When connecting to localhost, the default `become` settings are not used, but the account that ran the Ansible command is used
 - Ensure this account has been configured with the appropriate `sudo` privileges
+
+# 2.7 ansible-navigator Settings
+- After installing `ansible-navigator`, it needs additional setup
+- To provide this setup, you'll need to login to a container registry
+- This is because `ansible-navigator` uses an execution environment, which is based on a container image
+
+## Demo: ansible-navigator intial setup
+- `sudo dnf install ansible-navigator`
+- `ansible-navigator --version`
+- `podman login registry.redhat.io`
+- `podman pull registry.redhat.io/ansible-automation-platform-22/ee-supported-rhel8:latest`
+- `ansible-navigator images`
+- `ansible-navigator inventory -i inventory file --list`
+
+## Managin Settings for ansible-navigator
+- Settings for `ansible-navigator` can be specified in a configuration file
+- Define `~/.ansible-navigator.yml` for generic settings
+- If an `ansible-navigator.yml` file is found in the current project directory, this will have higher priority
+- Recommended settings:
+  - `pull.policy: missing` will only contact the container registry if no container image has been pulled yet
+  - `playbook-artifact.enable: false` required when a playbook prompts for a password
+
+## ansible-navigator.yml example
+```yaml
+ansible-navigator:
+    execution-environment:
+        image: ee-supported-rhel8:latest
+        pull:
+            policy: missing
+    playbook-artifact:
+        enable: false
+```
