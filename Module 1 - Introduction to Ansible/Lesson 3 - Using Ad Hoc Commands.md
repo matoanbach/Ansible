@@ -166,3 +166,41 @@ collections:
 - Ansible documentation is provided on docs.ansible.com
 - It may be a bit hard to find what you need, as the documentation is focused on Automation Platform
 - The best resource for documentation about Ansible Core is under the Core button on this website
+
+# Lesson 3 Lab: Working with Modules
+- Install the community.cryto collection in such a way that it can be used by `ansible-navigator`, as well as the `ansible` command
+- Use the `ping` module in an ad hoc command to verify that all of your hosts have been set up successfully
+    ```bash
+    [ansible@control ~]$ ansible all -m ping
+    ansible1 | SUCCESS => {
+        "ansible_facts": {
+            "discovered_interpreter_python": "/usr/bin/python3"
+        },
+        "changed": false,
+        "ping": "pong"
+    }
+    ansible2 | SUCCESS => {
+        "ansible_facts": {
+            "discovered_interpreter_python": "/usr/bin/python3"
+        },
+        "changed": false,
+        "ping": "pong"
+    }
+    ```
+- Use the appropriate ad hoc command to run the `grep ssh` command on the output of the `rpm -qa` command on all managed hosts
+
+    ```bash
+    [ansible@control ~]$ ansible all -m shell -a "rpm -qa | grep ssh"
+    ansible1 | CHANGED | rc=0 >>
+    libssh-config-0.9.6-3.el9.noarch
+    libssh-0.9.6-3.el9.x86_64
+    openssh-8.7p1-8.el9.x86_64
+    openssh-clients-8.7p1-8.el9.x86_64
+    openssh-server-8.7p1-8.el9.x86_64
+    ansible2 | CHANGED | rc=0 >>
+    libssh-config-0.9.6-3.el9.noarch
+    libssh-0.9.6-3.el9.x86_64
+    openssh-8.7p1-8.el9.x86_64
+    openssh-clients-8.7p1-8.el9.x86_64
+    openssh-server-8.7p1-8.el9.x86_64
+    ```
