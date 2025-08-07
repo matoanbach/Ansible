@@ -149,4 +149,17 @@ collections:
   - `ansible all -m copy -a 'content="hello world" dest=/etc/motd'`
 
 # 3.7 Idempotency
+- Idempotency in Ansible means that no matter the current state of the managed node, running an Ansible module should always give the same result
+- The result is that the desired state as expressed by the module should be implemented
+- If the currentstate already matches the desired state, nothing should happen
+- Most important: if the current state already matches the desired state, the Ansible module should not generate an error message
+- In Ansible you should always configure idempotent solutions
+- Some modules - including `command` however are not idempotent
+
+## Demo: Exploring Idempotency
+- `ansible ansible1 -m command -a "useradd lisa"`
+- `ansible ansible1 -m command -a "useradd lisa"`
+- `ansible ansible1 -m user -a "name=linda"`
+- `ansible ansible1 -m user -a "name=linda"`
+
 # 3.8 Using docs.ansible.com
