@@ -60,5 +60,14 @@
     ```
 
 # 4.3 Verifying Playbook Syntax
+## Verifying Syntax
+- `ansible-playbook --syntax-check vsftpd.yml` will perform a syntax check
+- Use `-v[vvv]` to increase output verbosity
+  - `-v` will show task results
+  - `-vv` will show task results and task configuration
+  - `-vvv` also shows information about connections to managed hosts
+  - `-vvvv` adds information about plug-ins, users used to run scripts, and names of scripts that are executed
+- Use `ansible-navigator run [--pp never] -m stdout vsftpd.yml --syntax-check` to check a syntax check with navigator
+
 
 # 4.4 Using Multiple-Play Playbooks
