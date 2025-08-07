@@ -33,6 +33,31 @@
 ```
 
 # 4.2 Running Playbooks
+## Running Your First Playbook
+- Run `ansible-playbook vsftpd.yml` to run the playbook
+- Notice that a successfuly run requires the inventory and become parameters to be set correctly, and also requires access to an inventory file
+- The output of the `ansible-playbook` command will show what exactly has happened
+- Playbooks should be idempotent, which means that running the same playbook again should lead to the same result
+- Notice there is no easy way to undo changes made by a playbook
+
+## Using ansible-navigator
+- `ansible-navigator run -m stdout --pp never vsftpd.yml` will run the playbook using navigator
+  - `-m stdout` will write output to STDOUT instead of using iterative mode
+  - `--pp never` will not check for newer container images
+- `ansible-navigator run --pp never vsftpd.yml` will run the playbook in iterative mode
+  - Use the indicated numbers to get more details about each step
+  - Use Esc to get out of any interface
+  - Set `policy: missing` in `.ansible-navigator.yml` to avoid using the `--pp never` option
+  - `~/.ansible-navigator.yml`
+    ```yml
+    ansible-navigator:
+    execution-environment:
+        image: ee-supported-rhel8:latest
+        pull:
+        policy: missing
+    playbook-artifact:
+        enable: false
+    ```
 
 # 4.3 Verifying Playbook Syntax
 
