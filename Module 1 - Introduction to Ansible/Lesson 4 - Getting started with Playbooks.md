@@ -81,3 +81,62 @@
   - `become_method`: to allow using an alternative escalation solution
   - `become_user`: the target user used for privilege escalation
 - When these parameters are used at a more specific level, they will overwrite the more generic setting
+
+# Lesson 4 Lab: Writing a Playbook
+- Write a playbook that installs the httpd package on ansible2
+- Ensure that it is started and that the firewall is opened to allow access to it
+- Also create a file /var/www/html/index.html with some welcome text
+- Lastly, write a playbook that will undo all modifications
+
+```yml
+---
+- name: Playbook for lab4
+  hosts: ansible2
+  tasks:
+    - name: install httpd
+      dnf:
+        name:
+          - httpd
+          - firewalld
+        state: latest
+
+    - name: start httpd
+      service:
+        name: httpd
+        enabled: yes
+        state: started
+
+    - name: start firewalld
+      service:
+        name: firewalld
+        enabled: yes
+        state: started
+
+    - name: set up firewall for httpd
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: true
+
+    - name: write to index.html
+      copy:
+        content: "welcome text"
+        dest: /var/www/html/index.html
+```
+
+```yml
+---
+- name: undo lab4 playbook
+  hosts: ansible2
+  tasks:
+  - name: file index.html is removed
+    file:
+      name: /var/www/html/index.html
+      state: absent
+
+  - name: delete httpd package
+    dnf:
+      name: httpd
+      state: absent
+```
