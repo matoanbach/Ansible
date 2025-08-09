@@ -27,6 +27,31 @@
 - When a variable is set from the command line, it has highest precedence
   - `ansible-playbook site.yml -e "web_package=apache"`
 
+# 5.2 Using Variables in Playbooks
+- Variables can be defined in a vars section in the beginning of a play
+    ```yaml
+    - hosts: all
+      vars:
+        web_package: httpd
+    ```
+- Alternatively, variables can be defined in a variable file, which will be included from the playbook
+    ```yaml
+    - hosts: all
+      vars_files:
+        - vars/users.yml
+    ```
+## Using Variables
+- After defining the variables, they can be used later in the playbook
+- Refer to a variable `{{ web_package }}`
+- In conditional statements (discussed later), no curly braces are needed to refer to variable values
+  - `when: 'not found' in command_result.err`
+    ```yaml
+    {% if ansible_facts['devices']['sdb'] is defined %} 
+        Secondary disk size: {{
+            ansible_facts['devices']['sdb']['size'] }}
+    ```
+- If the variable is the first element, using quotes is mandatory: `"{{ web_package }}"`
+
 # 5.3 Including Variables
 # 5.4 Managing Host Variables
 # 5.6 Using Register to Set Variables
