@@ -172,6 +172,13 @@ handlers:
             name: httpd
             state: restarted
 ```
+
+## Using Handlers
+- Handlers are executed after running all tasks in a play
+- Use `meta: flush_handlers` to run handlers now
+- Handler will only run if a task has changed something
+- If one of the next tasks in the play fails, the handler will not run, but this may be overwritten using `force_handlers: True`
+- One task may trigger more than one handler
 # 7.6 Using Blocks
 # 7.7 Managing Task Failure
 # 7.8 Managing Changed Status
