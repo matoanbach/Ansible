@@ -98,5 +98,83 @@
     - `ansible_play_hosts`: same as ansible_play_batch
     - `ansible_version`: current Ansible version
 
+```yaml
+[ansible@control rhce_clone]$ cat 5-6.yml 
+---
+- name: variable files
+  hosts: ansible1
+  tasks:
+  - name: create a user 
+    user:
+      name: "{{ user }}"
+    register: task_result
+  - name: debug users
+    debug:
+      var: task_result
+```
+
 # 5.7 Using Vault to Manage Sensitive Values
+```yaml
+---
+- name: variable files
+  hosts: ansible1
+  tasks:
+  - name: debug users
+    debug:
+      msg: the user is {{ user }}  the password is {{ pwhash }}
+  - name: create a  user {{ user }}
+    user:
+      name: "{{ user }}"
+  - name: set password
+    shell: echo {{ pwhash }} | passwd --stdin {{ user }} 
+    register: set_password_result
+  - name: debug set password
+    debug:
+      var: set_password_result
+```
+- result:
+```bash
+[ansible@control rhce_clone]$ ansible-playbook --ask-vault-password 5-7.yml
+Vault password: 
+
+PLAY [variable files] ******************************************************************************************
+
+TASK [Gathering Facts] *****************************************************************************************
+ok: [ansible1]
+
+TASK [debug users] *********************************************************************************************
+ok: [ansible1] => {
+    "msg": "the user is linda  the password is password"
+}
+
+TASK [create a  user linda] ************************************************************************************
+ok: [ansible1]
+
+TASK [set password] ********************************************************************************************
+changed: [ansible1]
+
+TASK [debug set password] **************************************************************************************
+ok: [ansible1] => {
+    "set_password_result": {
+        "changed": true,
+        "cmd": "echo password | passwd --stdin linda",
+        "delta": "0:00:00.111547",
+        "end": "2025-08-09 13:50:45.038689",
+        "failed": false,
+        "msg": "",
+        "rc": 0,
+        "start": "2025-08-09 13:50:44.927142",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "Changing password for user linda.\npasswd: all authentication tokens updated successfully.",
+        "stdout_lines": [
+            "Changing password for user linda.",
+            "passwd: all authentication tokens updated successfully."
+        ]
+    }
+}
+
+PLAY RECAP *****************************************************************************************************
+ansible1                   : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
 # Lesson 5 Lab: Using Ansible Vault
