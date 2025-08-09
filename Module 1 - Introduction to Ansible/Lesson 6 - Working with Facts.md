@@ -149,3 +149,90 @@ users:
   - variables provided on the command line
 
 # Lab 6: Wokring with Facts
+- Create a playbook that sets a local fact `type = production` on host ansible1
+- Use an ad-hoc command with a filter to check that the fact was created successfully
+
+```yaml
+---
+- name: playbook for lab6
+  hosts: ansible1
+  vars:
+    remote_dir: /etc/ansible/facts.d
+    facts_file: lab6.fact
+  tasks:
+    - name: create a fact dir
+      file:
+        state: directory
+        recurse: true
+        path: "{{ remote_dir }}"
+    - name: copy facts over
+      copy:
+        dest: "{{ remote_dir }}"
+        src: "{{ facts_file }}"
+      register: task_result
+    - name: print status
+      debug:
+        msg: >
+          {{ task_result }}
+```
+
+- Result:
+```yaml
+[ansible@control rhce_clone]$ ansible-playbook lab-6.yml 
+
+PLAY [playbook for lab6] ***************************************************************************************
+
+TASK [Gathering Facts] *****************************************************************************************
+ok: [ansible1]
+
+TASK [create a fact dir] ***************************************************************************************
+ok: [ansible1]
+
+TASK [copy facts over] *****************************************************************************************
+ok: [ansible1]
+
+TASK [print status] ********************************************************************************************
+ok: [ansible1] => {
+    "msg": {
+        "changed": false,
+        "checksum": "03e8170f09069a662a6125e7604f7e1430f0cf0a",
+        "dest": "/etc/ansible/facts.d/lab6.fact",
+        "diff": {
+            "after": {
+                "path": "/etc/ansible/facts.d/lab6.fact"
+            },
+            "before": {
+                "path": "/etc/ansible/facts.d/lab6.fact"
+            }
+        },
+        "failed": false,
+        "gid": 0,
+        "group": "root",
+        "mode": "0644",
+        "owner": "root",
+        "path": "/etc/ansible/facts.d/lab6.fact",
+        "secontext": "system_u:object_r:etc_t:s0",
+        "size": 25,
+        "state": "file",
+        "uid": 0
+    }
+}
+
+PLAY RECAP *****************************************************************************************************
+ansible1                   : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[ansible@control rhce_clone]$ ansible ansible1 -m setup -a "filter=ansible_local"
+ansible1 | SUCCESS => {
+    "ansible_facts": {
+        "ansible_local": {
+            "lab6": {
+                "lab6": {
+                    "type": "production"
+                }
+            }
+        },
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false
+}
+```
