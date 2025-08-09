@@ -132,6 +132,26 @@ ansible_distribution == "CentOS"
         var: user
 ```
 
+## Another example
+
+```yaml
+---
+- name: test register
+  hosts: all
+  vars_prompt:
+    - name: username
+      prompt: which user are you looking for
+      private: no
+  tasks:
+    - shell: cat /etc/passwd
+      register: passwd_contents
+    - debug:
+        var: passwd_contents
+    - debug:
+        msg: echo "passwd contains user {{ username }}"
+      when: passwd_contents.stdout.find(username) != -1 
+```
+
 # 7.5 Conditional Task Execution with Handlers
 # 7.6 Using Blocks
 # 7.7 Managing Task Failure
