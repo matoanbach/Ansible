@@ -174,7 +174,28 @@ users:
       debug:
         msg: >
           {{ task_result }}
+
+---
+- name: playbook for lab6
+  hosts: ansible1
+  vars:
+    remote_dir: /etc/ansible/facts.d
+    facts_file: lab6.fact
+  tasks:
+    - name: create a fact dir
+      file:
+        state: directory
+        recurse: true
+        path: "{{ remote_dir }}"
+    - name: copy facts over
+      copy:
+        dest: "{{ remote_dir }}"
+        content: |
+          [facts]
+          type=production
 ```
+
+
 
 - Result:
 ```yaml
