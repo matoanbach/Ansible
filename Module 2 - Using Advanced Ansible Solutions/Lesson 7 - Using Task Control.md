@@ -91,6 +91,18 @@
 ```
 
 # 7.4 Using When and Register to Check Multiple Conditions
+## TEsting Multiple Conditions
+- `when` can be used to test multiple conditions as well
+- Use `and` or `or` and group the conditions with parentheses
+```yaml
+when: ansible_distribution == "CentOS" or \
+ansible_distibution == "RedHat"
+when: ansible_machine == "x86_63" and \
+ansible_distribution == "CentOS"
+```
+- The `when` keyword also supports a list and when using a list, all of the conditions must be true
+- Complex conditional statements can group conditions using parentheses
+
 # 7.5 Conditional Task Execution with Handlers
 # 7.6 Using Blocks
 # 7.7 Managing Task Failure
