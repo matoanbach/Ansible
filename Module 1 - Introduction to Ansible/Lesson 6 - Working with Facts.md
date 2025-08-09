@@ -128,4 +128,24 @@ users:
 - To refer to custom facts, use `ansible_facts.ansible_local`, not `ansible_facts.local`
 
 # 6.5 Understanding Variables
+- Variables set in a playbook only exist in the specific play where they are defined
+- Variables can get a playbook scope by defining them as follows:
+  - Through host or host group
+  - In inventory
+  - By var plugins
+  - Using modules like `set_fact` and `include_vars`
+- Inventory and host [group] variables have a host scope. This also goes for the `hostvars[]` dictionary
+- Use `-e "var=name"` to define a variable with a playbook scope that overrides all other variables
+
+## Variable Precedence
+- More specific will always win, Ansible will give precedence to variables that were defined more recently, more actively, or with more explicit scope
+- Below is a partial list of precedence, from lowest to highest
+  - role defaults
+  - inventory variables
+  - host facts
+  - play variables
+  - included play variables
+  - task variables
+  - variables provided on the command line
+
 # Lab 6: Wokring with Facts
