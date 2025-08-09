@@ -103,6 +103,35 @@ ansible_distribution == "CentOS"
 - The `when` keyword also supports a list and when using a list, all of the conditions must be true
 - Complex conditional statements can group conditions using parentheses
 
+```yaml
+---
+- name: conditionals test 
+  hosts: all
+  vars:
+    package: nmap
+  tasks:
+  - name: install vsftpd if sufficient space on /boot
+    package:
+      name: "{{ package }}"
+      state: latest
+    loop: "{{ ansible_mounts }}"
+    when: item.mount == "/boot" and item.size_available > 100000000
+```
+
+## Using Register Conditionally
+- The `register` keyword is used to store the results of a command or tasks
+- Next, `when` can be used to run a task only if a specific result was found
+
+```yaml
+- name: show register on random module
+    user:
+        name: "{{ username }}"
+    register: user
+- name: show register results
+    debug:
+        var: user
+```
+
 # 7.5 Conditional Task Execution with Handlers
 # 7.6 Using Blocks
 # 7.7 Managing Task Failure
