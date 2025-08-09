@@ -72,6 +72,24 @@
 
 - Using a filter does not change the variable type, it only changes the way it is interpreted
 
+## Demo on how to use When:
+```yml
+--
+- name: when demo
+  hosts: all
+  vars:
+    supported_distros:
+      - Ubuntu
+      - CentOS
+      - Fedora
+  tasks:
+    - name: install RH family specific packages
+      yum:
+        name: "{{ mypackage }}"
+        state: present
+      when: ansible_distribution in supported_distros
+```
+
 # 7.4 Using When and Register to Check Multiple Conditions
 # 7.5 Conditional Task Execution with Handlers
 # 7.6 Using Blocks
