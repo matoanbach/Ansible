@@ -61,6 +61,31 @@
 - The variables file itself contains variable defintions as `key: value`
 
 # 5.4 Managing Host Variables
+- Host variables are specific to a host only
+- They are defined in a YAML file that has the name of the inventory hostname and are stored in the `host_vars` directory in the current project directory
+- To apply variables to host groups, a file with the inventory name of the host group should be defined in the `group_vars` directory in the current project directory
+- Host variables defined this way will be picked up by the hosts automatically
+- Host variables can also be set in the inventory, but this is now deprecated
+
+```txt
+[ansible@control rhce_clone]$ tree -R  .
+.
+├── \
+├── 5-2.yml
+├── 5-3.yml
+├── 5-4.yml
+├── ansible.cfg
+├── group_vars
+│   └── webservers
+├── host_vars
+│   └── ansible1
+├── inventory
+├── lab4-undo.yml
+├── lab4.yml
+└── vars
+    └── users
+```
+
 # 5.6 Using Register to Set Variables
 # 5.7 Using Vault to Manage Sensitive Values
 # Lesson 5 Lab: Using Ansible Vault
