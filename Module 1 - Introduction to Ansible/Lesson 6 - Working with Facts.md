@@ -49,6 +49,71 @@ ansible_facts['date_time']['date']
       msg: the IP address is {{ ansible_facts.ansible_default_ipv4.address }}
 ```
 # 6.3 Understanding Dictionaries and Arrays
+- Multi-valued variables can be used in playbooks and can be seen in output, such as Ansible facts
+- When using a multi-valued variable, it can be written as an array (list), or as a dictionary (hash)
+- Each of these has their own specific use cases
+  - Dictionaries are used in Ansible facts
+  - Arrays are common for multi-valued variables, and easily support loops
+  - Loops are not supported on dictionaries
+
+## Dictionaries versus Arrays
+- Dictionaries and arrays in Ansible are based on Python dictionaries and arrays
+- An array (list) is an ordered list of values, where each value can be addressed individually
+```python
+List = ["one", "two", "three"]
+print(List[0])
+```
+- A dictionary (hash) is an unordered collection of values, which is stored as a key-value pair
+```python
+Dict = {1: "one", 2: "two", 3: "three"}
+print(Dict)
+```
+- Notice that a dictionary can be included in a list, and a list can be a part of a dictionary
+
+## Dictionary (Hash)
+- Dictionaries can be written in two ways:
+```yaml
+users:
+    linda:
+        username: linda
+        shell: /bin/bash
+    lisa:
+        username: lisa
+        shell: /bin/sh
+```
+
+- Or as:
+```yaml
+users:
+    linda: { username: "linda", shell: "/bin/bash" }
+    lisa: { username: "lisa", shell: "/bin/bash" }
+```
+
+## Using Dictionary
+- To address items in a dictionary, you can use two notations:
+  - variable_name["key"], as in `users['linda']['shell']`
+  - variable_name.key, as in `users.linda.shell`
+- Dictionaries are used in facts, use arrays in conditionals
+
+## Using Array (List)
+- Arrays provide a list of items, where each item can be addressed separately
+```yaml
+users:
+    - username: linda
+      shell: /bin/bash
+    - username: lisa
+      shell: /bin/sh
+```
+- Individual items in the array can be addressed, using the `{{ var_name[0] }}` notation
+- Use arrays for looping, not dictionaries
+- To access all variables, you can use `with_items` or `loop` (covered in the next lesson)
+
+## Recognizing Arrays and Dictionaries
+- In output like facts, a list is always written between `[]`
+- Dictionaries are written between `{}`
+- And if the output is just showing `" "`, it is a string
+- Check `ansible_mounts` in the facts, which actually presents a list of dictionaries
+
 # 6.4 Defining Custom Facts
 # 6.5 Understanding Variables
 # Lab 6: Wokring with Facts
