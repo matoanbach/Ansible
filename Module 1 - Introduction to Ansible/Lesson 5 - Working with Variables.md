@@ -178,3 +178,68 @@ PLAY RECAP *********************************************************************
 ansible1                   : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
 # Lesson 5 Lab: Using Ansible Vault
+- Create a playbook that creates a user. The user as well as the password should come from a variable
+- Define both in separate include files
+- Make sure the password is encrypted with vault, whereas the username is not encrypted with vault
+- Verify it works
+
+```yaml
+---
+- name: lab5 playbook
+  hosts: ansible1
+  vars_files:
+    - secrets/lab5
+    - secrets/secrets
+  tasks:
+    - name: create a user
+      user:
+        name: "{{ lab5_user_name }}"
+
+    - name: set password
+      shell: echo {{ lab5_user_password }} | passwd --stdin {{ lab5_user_name }}
+      register: task_result
+
+    - name: print out the status
+      debug:
+        var: task_result 
+```
+- result
+```bash
+[ansible@control rhce_clone]$ ansible-playbook --ask-vault-password lab-5.yml 
+Vault password: 
+
+PLAY [lab5 playbook] *******************************************************************************************
+
+TASK [Gathering Facts] *****************************************************************************************
+ok: [ansible1]
+
+TASK [create a user] *******************************************************************************************
+changed: [ansible1]
+
+TASK [set password] ********************************************************************************************
+changed: [ansible1]
+
+TASK [print out the status] ************************************************************************************
+ok: [ansible1] => {
+    "task_result": {
+        "changed": true,
+        "cmd": "echo lab5 | passwd --stdin lab5",
+        "delta": "0:00:00.091187",
+        "end": "2025-08-09 14:12:01.272124",
+        "failed": false,
+        "msg": "",
+        "rc": 0,
+        "start": "2025-08-09 14:12:01.180937",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "Changing password for user lab5.\npasswd: all authentication tokens updated successfully.",
+        "stdout_lines": [
+            "Changing password for user lab5.",
+            "passwd: all authentication tokens updated successfully."
+        ]
+    }
+}
+
+PLAY RECAP *****************************************************************************************************
+ansible1                   : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
+```
