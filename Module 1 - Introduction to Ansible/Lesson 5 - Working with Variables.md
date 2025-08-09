@@ -87,5 +87,16 @@
 ```
 
 # 5.6 Using Register to Set Variables
+- Some variables are built in and cannot be used for anything else
+    - `hostvars`: a dictionary that contains all variables that apply to a specific
+    - `inventory_hostname`: inventory name of the current host
+    - `inventory_host_name`: short host inventory name
+    - `groups`: all hosts in inventory, and groups these hosts belong to
+    - `group_name`: list of groups the current host is a part of
+    - `ansible_check_mode`: boolean that indicates if play is in check mode
+    - `ansible_play_batch`: active hosts in the current play
+    - `ansible_play_hosts`: same as ansible_play_batch
+    - `ansible_version`: current Ansible version
+
 # 5.7 Using Vault to Manage Sensitive Values
 # Lesson 5 Lab: Using Ansible Vault
