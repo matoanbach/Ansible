@@ -55,7 +55,14 @@
 - `my_variable` - Variable is Boolean true
 - `ansible_distribution in supported_distros` - Variable contains another variable
 
-
+## Variable Types
+- String: sequence of characters - the default variable type in Ansible
+- Numbers: numeric value, treated as integer or float. When placing a number in quotes it is treated as a string
+- Booleans: true/false values (yes/no, y/n, on/off also supported)
+- Dates: calendar dates
+- Null: undefined variable type
+- List or Arrays: a sorted collection of values 
+- Dictionary or Hash: a collection of key/value pairs
 
 # 7.4 Using When and Register to Check Multiple Conditions
 # 7.5 Conditional Task Execution with Handlers
