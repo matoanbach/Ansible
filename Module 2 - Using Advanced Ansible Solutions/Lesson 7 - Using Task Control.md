@@ -179,6 +179,14 @@ handlers:
 - Handler will only run if a task has changed something
 - If one of the next tasks in the play fails, the handler will not run, but this may be overwritten using `force_handlers: True`
 - One task may trigger more than one handler
+
+## Using ansible.builtin.meta
+- Handlers are executed at the end of the play
+- To change this behavior, the `ansible.builtin.meta` module can be used
+- This module specifis option to influence the Ansible internal execution order
+  - `flush_handlers`: will run all notified handlers now
+  - `refresh_inventory`: refreshes inventory at the moment it is called
+
 # 7.6 Using Blocks
 # 7.7 Managing Task Failure
 # 7.8 Managing Changed Status
