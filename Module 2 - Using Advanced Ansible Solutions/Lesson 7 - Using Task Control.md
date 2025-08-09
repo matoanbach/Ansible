@@ -4,6 +4,44 @@
 - `handlers`: used to perform a task only if triggered by another task that has changed something
 
 # 7.2 Writing Loops
+- The `loop` keyword allows you to iterate through a simple list of items
+- Before Ansible 2.5, the `with_` keyword was used instead
+```yaml
+- name: start some services
+  service:
+    name: "{{ item }}"
+    state: started
+  loop:
+    - vsftpd
+    - httpd
+```
+
+## Using Dictionaries in Loops
+- Each item in a loop can be a hash/dictionary with multiple keys in each hash/dictionary
+```yaml
+- name: create users using a loop
+  hosts: all
+  tasks:
+  - name: create users
+    user:
+        name: "{{ item.name }}"
+        state: present
+        groups: "{{ item.groups }}"
+    loop:
+        - name: anna
+          groups: wheel
+        - name: linda
+          groups: users
+```
+## loop versus with_
+- The `loop` keyword is the current keyword
+- In previous versions of Ansible, the `with_*` keywords were used for the same purpose
+- Using `with_X` often is easier, but using plugins and filters offers more options
+  - `with_items`: equivalent to the `loop` keyword
+  - `with_file`: the `item` contains a file, which content is used to loop through
+  - `with_sequence`: generates a list of values based on a numeric sequence
+- Loop up "Migrating from with_X to loop" in the Ansible documentation for instructions on how to migrate
+
 # 7.3 Using When
 # 7.4 Using When and Register to Check Multiple Conditions
 # 7.5 Conditional Task Execution with Handlers
