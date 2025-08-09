@@ -53,6 +53,13 @@
 - If the variable is the first element, using quotes is mandatory: `"{{ web_package }}"`
 
 # 5.3 Including Variables
+## Includes
+- While writing playbooks, it is good practice not to include site specific data in the playbooks
+- Playbooks that define variables within the playbook are less portable
+- To make variables more flexible, they should be included in the play header using `vars_files`
+- See `ansible-doc -t keyword vars_files` for a short description
+- The variables file itself contains variable defintions as `key: value`
+
 # 5.4 Managing Host Variables
 # 5.6 Using Register to Set Variables
 # 5.7 Using Vault to Manage Sensitive Values
