@@ -153,6 +153,25 @@ ansible_distribution == "CentOS"
 ```
 
 # 7.5 Conditional Task Execution with Handlers
+## Handlers
+- Handlers run only if the triggering task has changed something
+- By using handlers, you can avoid unnecessary task execution
+- In order to run the handler, a `notify` statement is used from the main task
+- Handlers typically are used to restart services or reboot hosts
+
+```yaml
+- name: copy index.html
+    copy:
+        src: /tmp/index.html
+        dest: /var/www/html/index.html
+    notify:
+        - restart_web
+handlers:
+    - name: restart_web
+        service:
+            name: httpd
+            state: restarted
+```
 # 7.6 Using Blocks
 # 7.7 Managing Task Failure
 # 7.8 Managing Changed Status
