@@ -43,6 +43,27 @@
 - Loop up "Migrating from with_X to loop" in the Ansible documentation for instructions on how to migrate
 
 # 7.3 Using When
+## Example Conditionals
+- `ansible_machine == "x86_64"` - Variable contains string value
+- `ansible_distribution_version == "8"` - Variable contains string value
+- `ansible_memfree_mb == 1024` - Variable value is equal to integer
+- `ansible_memfree_mb < 256` - Variable value is smaller than  integer
+- `ansible_memfree_mb > 256` - Variable value is bigger than  integer
+- `ansible_memfree_mb <= 256` - Variable value is smaller than or equal to integer
+- `my_variable is defined` - Variable value exists (nice for facts) 
+- `my_variable is not defined` - Variable value does not exist
+- `my_variable` - Variable is Boolean true
+- `ansible_distribution in supported_distros` - Variable contains another variable
+
+## Variable Types
+- String: sequence of characters - the default variable type in Ansible
+- Numbers: numeric value, treated as integer or float. When placing a number in quotes it is treated as a string
+- Booleans: true/false values (yes/no, y/n, on/off also supported)
+- Dates: calendar dates
+- Null: undefined variable type
+- List or Arrays: a sorted collection of values 
+- Dictionary or Hash: a collection of key/value pairs
+
 # 7.4 Using When and Register to Check Multiple Conditions
 # 7.5 Conditional Task Execution with Handlers
 # 7.6 Using Blocks
