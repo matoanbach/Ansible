@@ -64,6 +64,14 @@
 - List or Arrays: a sorted collection of values 
 - Dictionary or Hash: a collection of key/value pairs
 
+## Using Filter to Enforce Variable Types
+- While working with variable in a when statement, the variable type may be interpreted wrongly
+- To ensure that a variable is treated as specific type, filters can be used
+  - int (integer) `when vgsize | int > 5`
+  - bool (boolean) `when runme | bool`
+
+- Using a filter does not change the variable type, it only changes the way it is interpreted
+
 # 7.4 Using When and Register to Check Multiple Conditions
 # 7.5 Conditional Task Execution with Handlers
 # 7.6 Using Blocks
