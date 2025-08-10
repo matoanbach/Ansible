@@ -275,6 +275,22 @@ handlers:
   register: command_result
   failed_when: "'world' in command_result.stdout"
 ```
+## Example
+### failure.yml
+```yml
+---
+- name: demonstrating failed_when
+  hosts: all
+  tasks:
+  - name: run a script
+    command: echo hello world
+    ignore_errors: yes
+    register: command_result
+    failed_when: "'world' in command_result.stdout"
+  - name: see if we get here
+    debug:
+      msg: hello
+```
 
 # 7.8 Managing Changed Status
 # 7.9 Including and Important Files
