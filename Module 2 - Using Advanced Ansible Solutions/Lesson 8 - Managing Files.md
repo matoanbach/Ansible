@@ -82,6 +82,19 @@
 ```
 
 # 8.3 Using Jinja2 Templates
+- `lineinfile` and `blockinfile` can be used to apply simple modifications to files
+- For more advanced modifications, use Jinja2 templates
+- Jinja2 is a templating engine for Python
+- In a Jinja2 template, variables can be used that are defined in the playbook
+- The `ansible.builtin.template` module renders the Jinja2 template to a final configuration file
+- Best practice: use Jinja2 templates if you need to generate files with different variables-based content on managed hosts. For simple modifications, use lineinfile and blockinfile
+
+## Marking Managed Files
+- To prevent administrators from overwriting files that are managed by Ansible, set the `ansible_managed` string
+  - First, in ansible.cfg set `ansible_managed = # Ansible managed`
+  - On top of the Jinja2 template, include the following line: `# {{ ansible_managed }}`
+- In the `ansible_managed` string, different variables can be used:
+  - `ansible_managed = {file} modified by Ansible on %d-%m-%Y by {uid}`
 # 8.4 Applying Conditionals in Jinja2 Templates
 # 8.5 Managing SELinux File Context
 # Lesson 8 Lab: Applying Conditionals in Templates
