@@ -384,3 +384,27 @@ handlers:
         - httpd
         - https
 ```
+
+# Lesson 7 Lab: Running Tasks Conditionally
+- Write a playbook that writes "you have a second disk" if a second disk was found on a node, and "you have no second disk" in the case that no second disk was found.
+
+```yaml
+---
+- name: Check for a second disk
+  hosts: all
+  vars:
+    disk_name: "sdb"
+  tasks:
+  - name: find a second disk
+    shell:
+      cmd: lsblk
+    register: lsblk_output
+  - name: found
+    debug:
+      msg: you have a second disk
+    when: lsblk_output.stdout.find(disk_name) != -1
+  - name: notfound
+    debug:
+      msg: you have no second disk
+    when: lsblk_output.stdout.find(disk_name) == -1
+```
