@@ -323,4 +323,12 @@ handlers:
 - Non-idempotent modules like `command` and `shell` cannot do that, and only work with an exit status of 0 or 1, which is next processed by Ansible to determine module success or failure
 - Because of this, a non-idempotent module may falsely report changed, when really no change has happened
 
+## Changed Status
+- Managing the changed status may be important, as handlers trigger on the changed status
+- The result of a command can registered, and the registered variable can be scanned for specific text to determine that a change has occurred
+- This allows Ansible to report a changed status, where it normally would not, thus allowing handlers to be triggered
+- Using `changed_when` is common in two cases:
+  - to allow handlers to run when a change would no normally trigger
+  - to disable commands that run successfully to report a changed status
+
 # 7.9 Including and Important Files
