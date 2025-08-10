@@ -116,6 +116,20 @@
       dest: /etc/vsftpd/vsftpd.conf
 ```
 
+## ansible.cfg
+```conf
+[defaults]
+inventory = inventory
+remote_user = ansible
+collections_path = /home/ansible/collections:/home/ansible/.ansible/collections:/usr/share/ansible/collections
+ansible_managed = {file} modified by Ansilbe on %d-%m-%Y by {uid}
+
+[privilege_escalation]
+become = True
+become_method = sudo
+become_user = root
+become_ask_pass = False 
+```
 # 8.4 Applying Conditionals in Jinja2 Templates
 # 8.5 Managing SELinux File Context
 # Lesson 8 Lab: Applying Conditionals in Templates
