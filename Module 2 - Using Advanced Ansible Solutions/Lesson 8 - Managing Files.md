@@ -95,6 +95,27 @@
   - On top of the Jinja2 template, include the following line: `# {{ ansible_managed }}`
 - In the `ansible_managed` string, different variables can be used:
   - `ansible_managed = {file} modified by Ansible on %d-%m-%Y by {uid}`
+
+## vsftpd-template.conf
+```yaml
+---
+- name: configure VSFTPD using a template
+  hosts: all
+  vars:
+    anonymous_enable: yes
+    local_enable: yes
+    write_enable: yes
+    anon_upload_enable: yes
+  tasks:
+  - name: install vsftpd
+    yum:
+      name: vsftpd
+  - name: use template to copy FTP config
+    template:
+      src: vsftpd.j2
+      dest: /etc/vsftpd/vsftpd.conf
+```
+
 # 8.4 Applying Conditionals in Jinja2 Templates
 # 8.5 Managing SELinux File Context
 # Lesson 8 Lab: Applying Conditionals in Templates
