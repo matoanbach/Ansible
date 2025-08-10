@@ -51,6 +51,36 @@
   - `ansible.posix.synchronize`: synchronizes files `rsync` style. Only works if the linux `rsync` utility is available on managed hosts
   - `ansible.posix.patch`: applies patches to files
 
+## copy.yml
+```yml
+---
+- name: file copy modules
+  hosts: all
+  tasks:
+  - name: copy file demo
+    copy:
+      src: /etc/hosts
+      dest: /tmp/
+  - name: add some lines to /tmp/hosts
+    blockinfile:
+      path: /tmp/hosts
+      block: |
+        192.168.4.111 host111.example.com
+        192.168.4.112 host112.example.com
+      state: present
+  - name: verify file checksum
+    stat:
+      path: /tmp/hosts
+      checksum_algorithm: md5
+    register: result
+  - debug:
+      msg: "The checksum of /tmp/hosts is {{ result.stat.checksum }}"
+  - name: fetch a file
+    fetch:
+      src: /tmp/hosts
+      dest: /tmp/
+```
+
 # 8.3 Using Jinja2 Templates
 # 8.4 Applying Conditionals in Jinja2 Templates
 # 8.5 Managing SELinux File Context
