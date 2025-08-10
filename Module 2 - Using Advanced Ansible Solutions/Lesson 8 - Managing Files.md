@@ -157,5 +157,12 @@ become_ask_pass = False
         dest: /etc/hosts
 ```
 
+## templates/hosts.j2
+```conf
+{% for host in groups['all']  %}
+{{ hostvars[host]['ansible_facts']['default_ipv4']['address'] }} {{ hostvars[host]['ansible_facts']['fqdn'] }} {{ hostvars[host]['ansible_facts']['hostname'] }}
+{% endfor %}
+```
+
 # 8.5 Managing SELinux File Context
 # Lesson 8 Lab: Applying Conditionals in Templates
