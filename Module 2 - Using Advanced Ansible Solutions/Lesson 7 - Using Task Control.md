@@ -347,3 +347,8 @@ handlers:
 ```
 
 # 7.9 Including and Important Files
+- If playbooks grow larger, it is common to use modularity by using includes and imports
+- Includes and imports can happen for roles, playbooks, as well as tasks
+- An _include_ is a dynamic process; Ansible processes the contents of the included files at the moment that this include is reached
+- An _import_ is a static process; Ansible preprocessses the imported file contents before the actual play is started
+  - Playbook imports must be defined at the beginning of the playbook, using `import_playbook`
