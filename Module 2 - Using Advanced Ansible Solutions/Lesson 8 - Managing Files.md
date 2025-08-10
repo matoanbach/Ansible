@@ -4,6 +4,22 @@
   - `ansible.builtin.blockinfile`: manipulates multi-like blocks of text in files
   - `ansible.builtin.file`: sets attributes to files, and can also create and remove files, symbolic links and more
   - `ansible.builtin.stat`: used to request file statistics. Useful when combined with register
+
+## file.yml
+```yaml
+---
+- name: create a file
+  hosts: all
+  tasks:
+    - name: create a file
+      file:
+        path: /tmp/removeme
+        owner: ansible
+        mode: 0640
+        state: touch
+        setype: public_content_rw_t
+```
+
 # 8.2 Copying Files to and From Managed Hosts
 # 8.3 Using Jinja2 Templates
 # 8.4 Applying Conditionals in Jinja2 Templates
