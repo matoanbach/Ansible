@@ -263,5 +263,17 @@ handlers:
 - Use `ignore_errors` in a task or play to ignore failures
 - Use `force_handlers` to force a handler that has been triggered to run, even if another task fails
   - Notice that if `ignore_error: yes` and `force_handlers: no` both have been set, the handlers will run after failing tasks 
+
+## Defining Failure States
+- As Ansible only looks at the exit status of a failed task, it may think a task was successful where that is not the case
+- To be more specific, use `failed_when` to specify what to look for in command output to recognize a failure
+  
+```yml
+- name: run a script
+  command: echo hello world
+  ignore_errors: yes
+  register: command_result
+  failed_when: "'world' in command_result.stdout"
+```
 # 7.8 Managing Changed Status
 # 7.9 Including and Important Files
