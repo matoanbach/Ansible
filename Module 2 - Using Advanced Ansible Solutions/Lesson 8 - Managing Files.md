@@ -194,3 +194,17 @@ become_ask_pass = False
 ```
 
 # Lesson 8 Lab: Applying Conditionals in Templates
+- Create a playbook that sets the hostnames of the managed hosts to the names that are used in the inventory
+- Reboot the managed hosts after setting the hostnames
+
+```yml
+---
+- name: set hostname to {{ inventory_hostname }}
+  hosts: all
+  tasks:
+    - name: set the hostname
+      command: hostnamectl set-hostname {{ inventory_name }}
+    - name: reboot
+      reboot:
+        msg: rebooting...
+```
