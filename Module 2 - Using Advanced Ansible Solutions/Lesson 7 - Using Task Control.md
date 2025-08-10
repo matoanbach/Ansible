@@ -292,5 +292,30 @@ handlers:
       msg: hello
 ```
 
+## Using the fail Module
+- The `failed_when` keyword can be used in a task to identify when a task has failed
+- The `fail` module can be used to print a message that informs why a task has failed
+- To use `failed_when` or `fail`, the result of the command must be registered, and the registered variable output must be analyzed
+- When using the `fail` module, the failing task must have `ignore_errors` set to yes   
+
+## listing725.yml 
+```yml
+---
+- name: demonstrating the fail module
+  hosts: all
+  ignore_errors: yes
+  tasks:
+  - name: run a script
+    command: echo hello world
+    register: command_result 
+  - name: report a failure
+    fail:
+      msg: the command has failed
+    when: "'world' in command_result.stdout"
+  - name: see if we get here
+    debug:
+      msg: second task executed
+```
+
 # 7.8 Managing Changed Status
 # 7.9 Including and Important Files
