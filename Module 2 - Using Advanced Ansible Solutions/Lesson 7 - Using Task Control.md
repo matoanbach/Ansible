@@ -226,6 +226,35 @@ handlers:
     when: ansible_distribution == "RedHat"
 ```
 
+## block2.yml
+```yml
+---
+- name: using blocks
+  hosts: all
+  tasks:
+  - name: intended to be successful
+    block:
+    - name: remove a file
+      shell:
+        cmd: rm /var/www/html/index.html 2>/dev/null
+    - name: printing status
+      debug:
+        msg: block task was operated
+    rescue:
+    - name: create a file
+      shell:
+        cmd: touch /tmp/rescuefile
+    - name: printing rescue status
+      debug:
+        msg: rescue task was operated
+    always:
+    - name: always write a message to logs
+      shell:
+        cmd: logger hello
+    - name: always printing this message
+      debug:
+        msg: this message is always printed
+```
 
 # 7.7 Managing Task Failure
 # 7.8 Managing Changed Status
