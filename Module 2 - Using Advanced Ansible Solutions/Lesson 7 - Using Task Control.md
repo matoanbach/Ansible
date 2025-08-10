@@ -207,6 +207,25 @@ handlers:
         cmd: touch /tmp/rescuefile
 ```
 
+## blocks.yml
+```yml
+---
+- name: simple block example
+  hosts: all
+  tasks:
+  - name: setting up http
+    block:
+    - name: installing http
+      yum:
+        name: httpd
+        state: present
+    - name: restart httpd
+      service:
+        name: httpd
+        state: started
+    when: ansible_distribution == "RedHat"
+```
+
 
 # 7.7 Managing Task Failure
 # 7.8 Managing Changed Status
