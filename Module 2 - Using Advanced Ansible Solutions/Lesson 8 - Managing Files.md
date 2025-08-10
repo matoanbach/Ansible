@@ -45,6 +45,12 @@
 ```
 
 # 8.2 Copying Files to and From Managed Hosts
+- Different Modules are available for managing files
+  - `ansible.builtin.copy`: copies a file from a local machine to a location on a managed host
+  - `ansible.builtin.fetch`: used to fetch a file from a remote machine and store in on the management node
+  - `ansible.posix.synchronize`: synchronizes files `rsync` style. Only works if the linux `rsync` utility is available on managed hosts
+  - `ansible.posix.patch`: applies patches to files
+
 # 8.3 Using Jinja2 Templates
 # 8.4 Applying Conditionals in Jinja2 Templates
 # 8.5 Managing SELinux File Context
