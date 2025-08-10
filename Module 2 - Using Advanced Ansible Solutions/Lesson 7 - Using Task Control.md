@@ -331,4 +331,19 @@ handlers:
   - to allow handlers to run when a change would no normally trigger
   - to disable commands that run successfully to report a changed status
 
+## changed.yml
+```yml
+---
+- name: demonstrate changed status
+  hosts: all
+  tasks:
+  - name: check local time
+    command: date
+    register: command_result
+    changed_when: false
+  - name: print local time
+    debug:
+      var: command_result.stdout
+```
+
 # 7.9 Including and Important Files
