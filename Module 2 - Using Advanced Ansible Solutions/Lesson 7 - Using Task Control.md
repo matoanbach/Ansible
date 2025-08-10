@@ -188,6 +188,26 @@ handlers:
   - `refresh_inventory`: refreshes inventory at the moment it is called
 
 # 7.6 Using Blocks
+- Blocks can be used in error condition handling
+  - Use `block` to define the main tasks to run
+  - Use `rescue` to define tasks that run if tasks defined in `block` fail
+  - Use `always` to define tasks that will always run
+```yaml
+- name: using blocks
+  hosts: all
+  tasks:
+  - name: intended to be successful
+    block:
+    - name: remove a file
+      shell:
+        cmd: rm /var/www/html/index.html
+    rescue:
+    - name: create a file
+      shell:
+        cmd: touch /tmp/rescuefile
+```
+
+
 # 7.7 Managing Task Failure
 # 7.8 Managing Changed Status
 # 7.9 Including and Important Files
