@@ -170,4 +170,27 @@ become_ask_pass = False
 - `ansible.builtin.command`: required to run `restorecon` after `sefcontext`
 - Notice that `file` sets SELinux context directly on the file (like the `chcon` command), and not in the policy. DO NOT USE!
 - Also consider using the RHEL system role for managing SELinux
+
+## selinux.yml
+```yml
+---
+- name: show selinux
+  hosts: all
+  tasks:
+  - name: install required packages
+    yum:
+      name: policycoreutils-python-utils
+      state: present
+  - name: set selinux context
+    sefcontext:
+      target: /tmp/removeme
+      setype: public_content_rw_t
+      state: present
+    notify:
+      - run restorecon
+  handlers:
+  - name: run restorecon
+    command: restorecon -v /tmp/removeme
+```
+
 # Lesson 8 Lab: Applying Conditionals in Templates
