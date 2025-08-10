@@ -145,5 +145,17 @@ become_ask_pass = False
 {% endfor %}
 ```
 
+## hostsfile.yml
+```yaml
+---
+- name: update /etc/hosts file dynamically
+  hosts: all
+  tasks:
+    - name: update /etc/hosts
+      template:
+        src: templates/hosts.j2
+        dest: /etc/hosts
+```
+
 # 8.5 Managing SELinux File Context
 # Lesson 8 Lab: Applying Conditionals in Templates
