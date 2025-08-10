@@ -352,3 +352,13 @@ handlers:
 - An _include_ is a dynamic process; Ansible processes the contents of the included files at the moment that this include is reached
 - An _import_ is a static process; Ansible preprocessses the imported file contents before the actual play is started
   - Playbook imports must be defined at the beginning of the playbook, using `import_playbook`
+
+## Including Task Files
+- A task file is a flat list of tasks
+- Use `import_tasks` to statically import a task file in the playbook, it will be included at the location where it is imported
+- Use `include_tasks` to dynamically include a task file
+- Dynamically including tasks means that some features are not available
+  - `ansible-playbook --list-tasks` will not show the tasks
+  - `ansible-playbook --start-at-task` doesn't work
+  - You cannot trigger a handler in an imported task file from the main task file
+- Best practice: store task files in a dedicated directory to make management easier
