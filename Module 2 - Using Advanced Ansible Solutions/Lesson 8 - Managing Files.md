@@ -20,6 +20,30 @@
         setype: public_content_rw_t
 ```
 
+## addcustomfacts.yml
+```yml
+---
+- hosts: ansible1
+  gather_facts: no
+  tasks:
+    - name: Create a custom fact on ansible1
+      blockinfile:
+        path: /etc/ansible/facts.d/local.fact
+        create: true
+        block: |
+          [localfacts]
+          type: production
+- hosts: ansible2
+  tasks:
+    - name: Create custom fact on ansible2
+      blockinfile:
+        path: /etc/ansible/facts.d/local.fact
+        create: true
+        block: |
+          [localfacts]
+          type: testing
+```
+
 # 8.2 Copying Files to and From Managed Hosts
 # 8.3 Using Jinja2 Templates
 # 8.4 Applying Conditionals in Jinja2 Templates
