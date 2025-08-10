@@ -362,3 +362,25 @@ handlers:
   - `ansible-playbook --start-at-task` doesn't work
   - You cannot trigger a handler in an imported task file from the main task file
 - Best practice: store task files in a dedicated directory to make management easier
+
+## includes-and-imports.yaml
+```yaml
+---
+- name: setup a service
+  hosts: ansible2
+  tasks:
+    - name: include the services task file
+      include_tasks: tasks/service.yaml
+      vars:
+        package: httpd
+        service: httpd
+      when: ansible_facts['os_family'] == "RedHat"
+    - name: include the firewall file
+      import_tasks: tasks/firewall.yaml
+      vars:
+        firewall_package: firewalld
+        firewall_service: firewalld
+        firewall_rules:
+        - httpd
+        - https
+```
