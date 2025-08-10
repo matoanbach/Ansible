@@ -257,5 +257,11 @@ handlers:
 ```
 
 # 7.7 Managing Task Failure
+- Ansible looks at the exit status of a task to determine whether it has failed
+- When any task fails, Ansible aborts the rest of the play on that host and continues with the next host
+- Different solutions can be used to change that behavior
+- Use `ignore_errors` in a task or play to ignore failures
+- Use `force_handlers` to force a handler that has been triggered to run, even if another task fails
+  - Notice that if `ignore_error: yes` and `force_handlers: no` both have been set, the handlers will run after failing tasks 
 # 7.8 Managing Changed Status
 # 7.9 Including and Important Files
