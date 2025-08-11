@@ -103,3 +103,16 @@ ansible-navigator:
   - `ansible ansible1 -m command -a 'free -m'`
 
 # Lesson 10 Lab: Troubleshooting Playbooks
+- Write a playbook that checks if network interface ens34 exists on ansible2
+```yaml
+---
+- name: playbook for lab10
+  hosts: ansible2
+  tasks:
+  - name: check
+    assert:
+      that:
+        - ansible_facts['ens160'] is defined
+      fail_msg: no ens160
+      success_msg: there is ens160
+```
