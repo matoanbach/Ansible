@@ -69,7 +69,11 @@
 - Notice that you don't have to use a `tasks:` section in the play, it will also work if you just have a `roles:` section
 - Best practice: if roles should be executed after some tasks, define the tasks and use `import_role` where needed
 
-
+## include_role versus import_role
+- `include_role` dynamically includes the role when it is referred to in a task
+- `import_role` is processed when the playbook is parsed
+- While using `import_role` the role handlers and variables are exposed to all tasks in the play, even if the role has not run yet
+- Best practice: in most cases, using `include_role` is better than using `import_role`
 
 
 # 9.5 Writing Custom Roles
