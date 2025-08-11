@@ -50,6 +50,12 @@ ansible-navigator:
 - For instance: `ansible-lint` will complain if you don't use FQCN while referring to modules; this may be something you deliverately do differently
 
 # 10.4 Using Check Mode
+- Use the `--check` option while running a playbook to perform check mode; this will show what would happen when running the playbook without actually changing anything
+  - Modules in the playbook must support check mode
+  - Check mode doesn't always work well in conditionals
+- Set `check_mode: yes` within a task to always run that specific task in check mode
+  - This is useful for checking individual tasks
+  - When setting `check_mode: no` for a task, this task will never run in check mode and give you normal behavior (as if running without `--check`)
 # 10.5 Using Modules for Troubleshooting and Testing
 # 10.6 Troubleshooting Connectivity Issues
 # Lesson 10 Lab: Troubleshooting Playbooks
