@@ -179,4 +179,26 @@ url = https://galaxy.ansible.com
 
 # 9.8 Using the TimeSync RHEL System Role
 # 9.9 Using the SELinux RHEL System Role
+## Demo
+```yml
+  36  ls /usr/share/doc/rhel-system-roles/selinux
+   37  cp /usr/share/doc/rhel-system-roles/selinux/example-selinux-playbook.yml .
+   38  vim example-selinux-playbook.yml 
+   39  ansible-playbook example-selinux-playbook.yml 
+   40  vim example-selinux-playbook.yml 
+   41  ansible all -a "ls -l /web"
+   42  ansible all -a "systemctl status httpd"
+   43  ansible all -a "systemctl install httpd -y"
+   44  ansible all -a "dnf install httpd -y"
+   45  ansible all -a "systemctl enable --now  httpd"
+   46  ansible all -a "systemctl status  httpd"
+   47  ansible all -a "systemctl status nginx"
+   48  ansible all -a "systemctl disable --now nginx"
+   49  ansible all -a "systemctl enable --now  httpd"
+   50  ansible all -a "ls -l /web"
+   51  ansible-playbook example-selinux-playbook.yml 
+   52  vim example-selinux-playbook.yml 
+   53  ansible-playbook example-selinux-playbook.yml 
+   54  ansible all -a "ls -Zd /web"
+```
 # Lesson 9 Lab: Using Roles
