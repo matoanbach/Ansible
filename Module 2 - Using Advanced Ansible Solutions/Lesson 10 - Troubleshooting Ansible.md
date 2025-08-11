@@ -78,4 +78,28 @@ ansible-navigator:
   - ...
 
 # 10.6 Troubleshooting Connectivity Issues
+- Connection issues might include the following
+  - Issues setting up the physical connection
+  - Issues running tasks as the target user
+
+## Analyzing Authentication Issues
+- Confirm the `remote_user` setting and existence of remote user on the managed host
+- Confirm host key setup
+- Verify `become` and `become_user`
+- Check that Linux `sudo` is configured correctly 
+
+## Connecting to Managed Hosts
+- When a host is available at different IP addresses / names, you can use `ansible_host` in inventory to specify how to connect
+- This ensures that the connection is made in a persistent way, using the right interface
+- `web.example.com ansible_host=192.168.4.100`
+
+## Using ad-hoc commands to Test Connectivity
+- The `ping` module was developed to test connectivity
+- Use the `--become` option to run with administrative privileges
+  - `ansible ansible1 -m ping`
+  - `ansible ansible1 -m ping --become`
+- Use the `command` module to test different items
+  - `ansible ansible1 -m command -a 'df'`
+  - `ansible ansible1 -m command -a 'free -m'`
+
 # Lesson 10 Lab: Troubleshooting Playbooks
