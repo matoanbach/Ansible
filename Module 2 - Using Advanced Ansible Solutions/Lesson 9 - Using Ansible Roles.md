@@ -99,6 +99,27 @@
 - Role variables in the default directory are overwritten by any other variable definition
 - If a variable is declared as a role parameter, it has the highest precedence
 
+## apache-vhost-role.yml
+```yml
+---
+- name: create apache vhost
+  hosts: ansible1
+  pre_tasks:
+  - name: pre_tasks message
+    debug:
+      msg: setting up web server
+  roles:
+    - mywebhost
+  post_tasks:
+    - name: install contents from local file
+      copy:
+        src: files/html
+        dest: "/var/www/vhosts/{{ ansible_hostname }}"
+    - name: post_tasks message
+      debug:
+        msg: web server is configured
+```
+
 # 9.5 Writing Custom Roles
 # 9.6 Using RHEL Sytem Roles
 # 9.7 Configuring Ansible Roles and Colletion Sources
