@@ -12,7 +12,18 @@
 - `ansible-navigator` creates playbook artifact files in the directory that contains the playbook. These artifacts have detailed information containing all relevant information about the playbook execution
 - The best way to use these artifact files is by accessing the logs from `ansible-navigator` in interactive mode
 
-# 10.2 Using the debug Module
+## Managing ansible-navigator Artifacts
+- Artifact files are generated for every playbook run
+- This will fill up the project directory if the playbook was run multiple times
+- Also, artifact files contain all information that was used, which may contain sensitive information
+- To skip artifact creation, configure ansible-navigator.yml to contain the following:
+
+```yml
+ansible-navigator:
+    playbook-artifact:
+        enable: false
+```
+
 # 10.3 Checking Playbooks for Issues
 # 10.4 Using Check Mode
 # 10.5 Using Modules for Troubleshooting and Testing
