@@ -33,6 +33,15 @@ ansible-navigator:
 - To check a playbook for errors, use the `--syntax-check` option with either the `ansible-playbook` or the `ansible-navigator` command
 - Also consider avoiding errors by applying some best practices
 
+## Best practices
+- Be consistent
+- Make sure evey task and play has a name that describes what the play is doing
+- Use consistent indentation
+- In case of doubt, use the `debug` module to check for variable values
+- Keep it simple
+- Always use the most specific Ansible solution
+- Avoid non-idempotent modules
+
 # 10.4 Using Check Mode
 # 10.5 Using Modules for Troubleshooting and Testing
 # 10.6 Troubleshooting Connectivity Issues
