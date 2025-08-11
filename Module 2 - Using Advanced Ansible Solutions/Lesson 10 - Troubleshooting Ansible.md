@@ -5,7 +5,12 @@
 - In the output, start by reading the PLAY RECAP section, and if anything is wrong, scroll up to read relevant output
 - To increase verbosity of the output of Ansible commands, use one to four `-v` options while running the command: `ansible-playbook -vvv myplay.yml` 
 
-
+## Understanding Logging
+- Ansible commands don't produce any logging, all output is written to STDOUT
+- If you want to write output to a log file, use the `log_path:` setting to specify the name of the log directory to be used
+  - Do no log to `/var/log`, as it requires `sudo` for write access
+- `ansible-navigator` creates playbook artifact files in the directory that contains the playbook. These artifacts have detailed information containing all relevant information about the playbook execution
+- The best way to use these artifact files is by accessing the logs from `ansible-navigator` in interactive mode
 
 # 10.2 Using the debug Module
 # 10.3 Checking Playbooks for Issues
