@@ -31,6 +31,15 @@
 - `ansible-galaxy [role list]` will list roles
 - `ansible-galaxy [role] remove geerlingguy.docker` will remove the role
 
+## Using a Requirements File
+- If specific roles are needed in a project, they can be specified in the `roles/requirements.yml` file in the project directory
+- By using a `requirements.yml` file, you'll have one location in the project to manage which roles are needed
+- In a requirements.yml file, different sources can be used
+  - Git: `https://github.com/mygit/myrole/scm: git`
+  - files: `file://tmp/myrole.tar`
+  - web: `https://www.example.local/myrole.tar`
+- If a role is hosted in Git, the `scm: git` attribute is required
+
 # 9.3 Understanding Roles in Ansible Content Collections
 # 9.4 Writing Playbooks that Use Roles
 # 9.5 Writing Custom Roles
