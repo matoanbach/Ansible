@@ -94,6 +94,11 @@
       message: bye
 ```
 
+## Role Variable Precedence
+- Role variables in the vars directory are not supposed to be overwritten, but will be overwritten by facts, registered variables, and variables loaded with `include_vars`
+- Role variables in the default directory are overwritten by any other variable definition
+- If a variable is declared as a role parameter, it has the highest precedence
+
 # 9.5 Writing Custom Roles
 # 9.6 Using RHEL Sytem Roles
 # 9.7 Configuring Ansible Roles and Colletion Sources
