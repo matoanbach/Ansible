@@ -13,6 +13,17 @@
   - From RPM packages
   - Through Ansible Content Collection from Red Hat Automation hub at `https://console.redhat.com`
 
+## Using Galaxy Roles
+- Community roles are provided through Ansible Galaxy
+- From there, find the role that you would like to use and fetch it, using `ansible-galaxy role install`
+- While installing roles, the `roles_path` setting is used
+- The default `roles_path` will use roles in the following order of precedence
+  - A roles directory in the current project directory
+  - The `~/.ansible/roles` directory
+  - `/etc/ansible/roles`
+  - `/usr/share/ansible/roles`
+- Optionally, use `ansible-galaxy role install -p mypath` to install in an alternative path
+
 # 9.3 Understanding Roles in Ansible Content Collections
 # 9.4 Writing Playbooks that Use Roles
 # 9.5 Writing Custom Roles
