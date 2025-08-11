@@ -42,6 +42,13 @@ ansible-navigator:
 - Always use the most specific Ansible solution
 - Avoid non-idempotent modules
 
+## ansible-lint
+- `ansible-lint` is an optional and not currently supported command
+- Also, `ansible-lint` is not registered in the default execution environment
+- Use it to check playbooks to verify that best practices have been applied
+- Notice that `ansible-lint` may give warnings about issues that aren't really an issue
+- For instance: `ansible-lint` will complain if you don't use FQCN while referring to modules; this may be something you deliverately do differently
+
 # 10.4 Using Check Mode
 # 10.5 Using Modules for Troubleshooting and Testing
 # 10.6 Troubleshooting Connectivity Issues
