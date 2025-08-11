@@ -59,6 +59,19 @@
 - Select `redhat.insights` to see some roles (use **:21** to address numbers higher than 9)
 
 # 9.4 Writing Playbooks that Use Roles
+## Using Roles in Playbooks
+- Roles can be used in different ways
+  - Using a `roles:` section in the play header
+  - Using the `import_role:` or `include_role:` module in a task
+- Roles listed in the `roles:` section are executed before the tasks in the play
+- Use `pre_tasks`: to trigger tasks to run before the roles
+- Use `post_tasks`: to force tasks to run after the roles and `tasks:`
+- Notice that you don't have to use a `tasks:` section in the play, it will also work if you just have a `roles:` section
+- Best practice: if roles should be executed after some tasks, define the tasks and use `import_role` where needed
+
+
+
+
 # 9.5 Writing Custom Roles
 # 9.6 Using RHEL Sytem Roles
 # 9.7 Configuring Ansible Roles and Colletion Sources
