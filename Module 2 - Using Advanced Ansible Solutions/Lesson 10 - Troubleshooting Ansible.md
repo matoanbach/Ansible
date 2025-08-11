@@ -56,6 +56,10 @@ ansible-navigator:
 - Set `check_mode: yes` within a task to always run that specific task in check mode
   - This is useful for checking individual tasks
   - When setting `check_mode: no` for a task, this task will never run in check mode and give you normal behavior (as if running without `--check`)
+## Using Check Mode on Templates
+- Add `--diff` to an Ansible playbook run to see differences that would be made by template files on a managed hosts
+  - `ansible-playbook --check --diff myplaybook.yml`
+
 # 10.5 Using Modules for Troubleshooting and Testing
 # 10.6 Troubleshooting Connectivity Issues
 # Lesson 10 Lab: Troubleshooting Playbooks
