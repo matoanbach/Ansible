@@ -140,6 +140,11 @@
 ```
 
 # 9.6 Using RHEL Sytem Roles
+- RHEL system roles are provided as an easy interface to manage specific parameters between different RHEL versions
+- Use `dnf install -y rhel-system-roles` to install them
+- RHEL system roles come with sample playbooks in `/usr/share/doc/rhel-system-roles` if installed from the RPM package
+- If you need to use RHEL system roles, copy a sample playbook from `/usr/share/doc/rhel-system-roles` to your project directory and modify it instead of create a new one
+
 # 9.7 Configuring Ansible Roles and Colletion Sources
 # 9.8 Using the TimeSync RHEL System Role
 # 9.9 Using the SELinux RHEL System Role
