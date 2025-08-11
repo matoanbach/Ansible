@@ -75,6 +75,12 @@
 - While using `import_role` the role handlers and variables are exposed to all tasks in the play, even if the role has not run yet
 - Best practice: in most cases, using `include_role` is better than using `import_role`
 
+## Variables in Roles
+- Roles are often pre-configured with standard variables
+  - Variables in the defaults directory in the role provide default variables that are intended to be changed in plays
+  - Variables in the vars directory in the role are used for internal purposes in the role and they are not intended to be overwritten in the playbook
+- Site-specific information should be set through playbook variables, which will be picked up by the role
+- Best practice: Don't define local variables or vault encrypted variables in the role, they should always be defined locally in the playbook
 
 # 9.5 Writing Custom Roles
 # 9.6 Using RHEL Sytem Roles
