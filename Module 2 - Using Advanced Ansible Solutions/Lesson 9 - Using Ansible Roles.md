@@ -126,6 +126,19 @@
 - Consider using `ansible-galaxy role init myrole` to create the default directory structure for the `myrole` role
 - Next, complete the main.yml files to provide role content
 
+```bash
+   1  mkdir temp
+    2  cd temp
+    3  ansible-galaxy init myrole
+    4  cd ..
+    5  cp ../rhce9/roles/motd roles
+    6  cp -r ../rhce9/roles/motd roles
+    7  vim roles
+    8  cp ../rhce9/motd-role.yml .
+    9  vim motd-role.yml 
+   10  history
+```
+
 # 9.6 Using RHEL Sytem Roles
 # 9.7 Configuring Ansible Roles and Colletion Sources
 # 9.8 Using the TimeSync RHEL System Role
