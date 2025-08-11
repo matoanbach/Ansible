@@ -121,6 +121,11 @@
 ```
 
 # 9.5 Writing Custom Roles
+## Creating Custom Roles
+- To create a custom role, just make sure to create the required directory structure somewhere in the `roles_path`
+- Consider using `ansible-galaxy role init myrole` to create the default directory structure for the `myrole` role
+- Next, complete the main.yml files to provide role content
+
 # 9.6 Using RHEL Sytem Roles
 # 9.7 Configuring Ansible Roles and Colletion Sources
 # 9.8 Using the TimeSync RHEL System Role
