@@ -82,6 +82,18 @@
 - Site-specific information should be set through playbook variables, which will be picked up by the role
 - Best practice: Don't define local variables or vault encrypted variables in the role, they should always be defined locally in the playbook
 
+## Defining Variables are Role Parameters
+- Variables can be set as a role parameter while calling the role from the playbook
+- This is helpful if the same role is used multiple times, with different values for the same variable
+```yml
+- hosts: webservers
+  roles:
+    - role: myrole
+      message: hello
+    - role: myrole
+      message: bye
+```
+
 # 9.5 Writing Custom Roles
 # 9.6 Using RHEL Sytem Roles
 # 9.7 Configuring Ansible Roles and Colletion Sources
