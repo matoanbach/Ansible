@@ -145,6 +145,12 @@
 - RHEL system roles come with sample playbooks in `/usr/share/doc/rhel-system-roles` if installed from the RPM package
 - If you need to use RHEL system roles, copy a sample playbook from `/usr/share/doc/rhel-system-roles` to your project directory and modify it instead of create a new one
 
+
+## Install RHEL System Roles
+- For Ansible Automation Platform customers, the RHEL system roles are available as a content collection: `redhat.rhel_system_roles`
+- Alternatively, they are available in `rhel-system-roles.rmp` for Ansible Core users
+- Tip: Best install rhel-system-roles using `dnf install rhel-system-roles`. This installs them to `/usr/share/ansible/roles` and `/usr/share/ansible/collections`, which ensure easy access from `ansible-navigator` as well as the `ansible-playbook` utility and also provides useful examples in `/usr/share/doc` 
+
 # 9.7 Configuring Ansible Roles and Colletion Sources
 # 9.8 Using the TimeSync RHEL System Role
 # 9.9 Using the SELinux RHEL System Role
