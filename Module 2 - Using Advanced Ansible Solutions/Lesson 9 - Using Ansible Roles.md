@@ -24,6 +24,13 @@
   - `/usr/share/ansible/roles`
 - Optionally, use `ansible-galaxy role install -p mypath` to install in an alternative path
 
+## Using the ansible-galaxy Command 
+- The `ansible-galaxy` command has a few useful options
+- `ansible-galaxy [role] search 'docker' --author geerlingguy --platforms EL` will search for roles containing the keyword docker, written for usage on RHEL and related by author geerlingguy
+- `ansible-galaxy [role] info geerlingguy.docker` shows information about the role
+- `ansible-galaxy [role list]` will list roles
+- `ansible-galaxy [role] remove geerlingguy.docker` will remove the role
+
 # 9.3 Understanding Roles in Ansible Content Collections
 # 9.4 Writing Playbooks that Use Roles
 # 9.5 Writing Custom Roles
