@@ -202,3 +202,23 @@ url = https://galaxy.ansible.com
    54  ansible all -a "ls -Zd /web"
 ```
 # Lesson 9 Lab: Using Roles
+- Create a requirement file to install the `geerlingguy.nginx` and the `geerlingguy.docker` roles
+- Configure your roles path to store newly installed roles to the roles directory in the current project directory
+- Use the RHEL system role to configure time synchronization against the `pool.ntp.org` time servers
+- Create a custom role that generates an `/etc/issue` file. This file should print the message "Today is DATe, welcome to SYSTEM", where DATA and SYSTEM are using the current date and the Ansible hostname of the current system
+
+## templates/issue.j2
+```yml
+Today is {{ ansible_date_time.date }} , welcome to {{ ansible_hostname }}
+```
+
+## tasks/main.yml
+```yml
+---
+# tasks file for issue
+- name: create issue file
+  template:
+    src: issue.j2
+    dest: /etc/issue
+    owner: ansible
+```
