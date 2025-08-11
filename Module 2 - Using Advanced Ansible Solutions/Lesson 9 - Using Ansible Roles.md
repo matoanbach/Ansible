@@ -7,6 +7,12 @@
   - Roles are included in tasks, using a `roles:` section in the playbook play header
 
 # 9.2 Using Ansible Galaxy to Get Roles
+- Roles can be provided in different ways
+  - Through Ansible Galaxy, either as roles or as a part of a content collection
+  - As tar balls
+  - From RPM packages
+  - Through Ansible Content Collection from Red Hat Automation hub at `https://console.redhat.com`
+
 # 9.3 Understanding Roles in Ansible Content Collections
 # 9.4 Writing Playbooks that Use Roles
 # 9.5 Writing Custom Roles
