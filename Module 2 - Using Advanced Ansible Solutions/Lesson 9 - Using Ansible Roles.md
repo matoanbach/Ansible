@@ -52,6 +52,12 @@
 ```
 
 # 9.3 Understanding Roles in Ansible Content Collections
+## Roles and Ansible Content Collections
+- Roles may be distributed through Ansible Content Collections
+- This is not commonly done
+- When roles are provided through collections, you'll find them using `ansible-navigator collections`
+- Select `redhat.insights` to see some roles (use **:21** to address numbers higher than 9)
+
 # 9.4 Writing Playbooks that Use Roles
 # 9.5 Writing Custom Roles
 # 9.6 Using RHEL Sytem Roles
