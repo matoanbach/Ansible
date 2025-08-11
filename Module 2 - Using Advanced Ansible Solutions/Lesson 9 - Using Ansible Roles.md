@@ -158,6 +158,20 @@
 - Generate this token from `https://console.redhat.com/ansible/automation-hub/token`
 - As an alternative for specifying a token, you may include a `username` and `password` as well
 
+## Example of ansible.cfg using Automation Hub Tokens
+```yml
+[galaxy]
+server_list = automation_hub, galaxy
+
+[galaxy_server.automation.hub]
+url = https://console.redhat.com/CHECK_YOUR_SETTINGS/auth_url=https://sso.redhat.com/auth/realms/ \
+    redhat-external/protocol/openid-connect/token
+token=ekT..3e
+
+[galaxy_server.galaxy]
+url = https://galaxy.ansible.com
+```
+
 # 9.8 Using the TimeSync RHEL System Role
 # 9.9 Using the SELinux RHEL System Role
 # Lesson 9 Lab: Using Roles
