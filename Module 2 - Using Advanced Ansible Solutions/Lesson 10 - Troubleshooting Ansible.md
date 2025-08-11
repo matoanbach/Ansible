@@ -56,10 +56,26 @@ ansible-navigator:
 - Set `check_mode: yes` within a task to always run that specific task in check mode
   - This is useful for checking individual tasks
   - When setting `check_mode: no` for a task, this task will never run in check mode and give you normal behavior (as if running without `--check`)
+
 ## Using Check Mode on Templates
 - Add `--diff` to an Ansible playbook run to see differences that would be made by template files on a managed hosts
   - `ansible-playbook --check --diff myplaybook.yml`
 
 # 10.5 Using Modules for Troubleshooting and Testing
+## Modules for Checking
+- `uri`: checks content that is returned from a specific URL
+- `script`: runs a script from the control node on the managed hosts
+- `stat`: checks the status of files; use it to register a variable and then tests to determine if a file exists
+- `assert`: this module will fail with an error if a specific condition is not met 
+
+## Using stat
+- The `stat` module can be used to check on file status
+- It returns a dictionary that contains a stat field what can have multiple values
+  - `atime`: last access time of the file
+  - `isdir`: true if a file is a dir
+  - `exists`: true if a file exists
+  - `size`: size in bytes
+  - ...
+
 # 10.6 Troubleshooting Connectivity Issues
 # Lesson 10 Lab: Troubleshooting Playbooks
