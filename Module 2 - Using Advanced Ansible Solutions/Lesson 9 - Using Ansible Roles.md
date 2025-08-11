@@ -172,6 +172,11 @@ token=ekT..3e
 url = https://galaxy.ansible.com
 ```
 
+## Using the Token as an Environment Variable
+- To avoid having the token listed in the ansible.cfg, you may want to set it as an environment variable
+- Use `export ANSIBLE_GALAXY_SERVER_AUTOMATION_HUB_TOKEN='ekT..3e'`
+- Next, the `token` line can be removed from ansible.cfg
+
 # 9.8 Using the TimeSync RHEL System Role
 # 9.9 Using the SELinux RHEL System Role
 # Lesson 9 Lab: Using Roles
