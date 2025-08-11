@@ -40,6 +40,17 @@
   - web: `https://www.example.local/myrole.tar`
 - If a role is hosted in Git, the `scm: git` attribute is required
 
+## Sample Requirements File
+```yml
+- src: https://github.com/myaccount/myrole.role
+  scm: git
+  version: "2.0"
+- src: file:///tmp/myrole.tar
+  name: mytarrole
+- src: https://example.local/myrole.tar
+  name: mywebrole
+```
+
 # 9.3 Understanding Roles in Ansible Content Collections
 # 9.4 Writing Playbooks that Use Roles
 # 9.5 Writing Custom Roles
