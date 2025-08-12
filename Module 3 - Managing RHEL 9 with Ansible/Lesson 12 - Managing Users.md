@@ -112,3 +112,29 @@
 - Use generic modules instead:
   - `ansible.builtin.lineinfile` can be used to manage the `/etc/sudoers.d/whatever` file
   - `ansible.builtin.template` can be used with a Jinja2 template to generate this file
+
+## setup-sudo.yml
+```yml
+---
+- name: configure sudo
+  hosts: ansible2
+  vars_files:
+    - vars/defaults
+    - vars/groups
+  tasks:
+  - name: add groups
+    group:
+      name: "{{ item.groupname }}"
+    loop: "{{ usergroups }}"
+  - name: add users
+    user:
+      name: "{{ item.username }}"
+      groups: "{{ item.groups }}"
+    loop: "{{ users }}"
+  - name: allow group members in sudo
+    template:
+      src: sudoers.j2
+      dest: /etc/sudoers.d/sudogroups
+      validate: 'visudo -cf %s'
+      mode: 0440
+```
