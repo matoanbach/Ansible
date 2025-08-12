@@ -71,3 +71,13 @@
       ssh_key_bits: 2048
       ssh_key_file: .ssh/ansiblekey_rsa
 ```
+
+# 12.3 Managing Encrypted Passwords
+- On linux, the hash of the encrypted  user password is stored in `/etc/shadow`
+- This hash looks like `$6$G9dU2zwfEJn2gQD/$TmlbTElEKom/DLxs604vMIjZVDvWLKzC8TmQiBMSmLWurpdyu1DJxUnM4C0ncaoCD/uWn/8AyZxcvwN5JNt4x0`
+- It consists of 3 parts:
+  - The hashing algorithm that is used
+  - The random salt that was used to encrypt the password
+  - The encrypted hash of the user password
+- To create an encrypted password, a random salt is used to ensure that two users that have identical passwords would not have identical entries in `/etc/shadow`
+- This salt and the unencrypted password are combine and encrypted, which generates the encrypted hash that is stored in `/etc/shadow`
