@@ -89,3 +89,19 @@
 - For enhanced security, store the password hash in a vault encrypted file
 - One method is to use the `password_hash` filter to generate an encrypted password
 - Another option would be to use the `shell` module to run `passwd --stdout` and capture the result of that command in a variable using `register`
+
+## userpwd.yml
+```yml
+---
+- name: create user with encrypted pass
+  hosts: ansible2
+  vars:
+    password: password
+    user: anna
+  tasks:
+  - name: create the user
+    user:
+      name: "{{ user }}"
+  - name: setting password
+    shell: echo {{ password }} | passwd --stdin {{ user }} 
+```
