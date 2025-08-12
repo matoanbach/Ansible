@@ -62,5 +62,10 @@
 ```
 
 # 11.2 Managing Repositories and Repository Access
+## Accessing Repositories
+- To access repositories, the `ansible.builtin.yum_repository` module is used 
+- This module creates a repository file in the `/etc/yum.repos.d` directory
+- If the module argument `gpgcheck: yes` is used, the `ansible.builtin.rpm_key` module must be used to install the GPG key
+
 # 11.3 Managing Subscriptions
 # Lesson 11 Lab: Managing Repositories
