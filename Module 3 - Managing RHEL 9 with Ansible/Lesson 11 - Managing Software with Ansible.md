@@ -43,6 +43,24 @@
 - When gathered, package facts are written to the `ansible_facts['packages']` variable
 - As packages are stored in an array, while addressing the package you need to address the correct array index value, which is `[0]` in many cases
 
+## packagefacts.yml
+```yml
+---
+- name: use debug to check package facts
+  hosts: ansible2
+  tasks:
+    - name: get information about packages
+      package_facts:
+        manager: auto
+    - name: list installed packages
+      debug:
+        var: ansible_facts.packages
+    - name: show Bash version
+      debug:
+        msg: "Version {{ ansible_facts.packages['bash'][0].version }}"
+      when: "'bash' in ansible_facts.packages"
+```
+
 # 11.2 Managing Repositories and Repository Access
 # 11.3 Managing Subscriptions
 # Lesson 11 Lab: Managing Repositories
