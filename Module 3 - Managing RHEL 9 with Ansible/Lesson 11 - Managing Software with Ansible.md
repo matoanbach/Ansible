@@ -25,6 +25,17 @@
     name: '@Virtualization Host'
     state: present
 ```
+## Managing Package Modules
+- The `dnf` command also supports working with package modules
+- Use `dnf module list` for a list of available modules
+- To install a module, put a @ in front of its name, optionally followed by the module stream version and profile
+
+```yml
+- name: install the php module
+  ansible.builtin.dnf
+    name: 'php:7.3/minimal'
+    state: latest
+```
 
 # 11.2 Managing Repositories and Repository Access
 # 11.3 Managing Subscriptions
