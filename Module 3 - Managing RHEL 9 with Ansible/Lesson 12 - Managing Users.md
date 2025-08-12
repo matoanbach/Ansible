@@ -23,3 +23,51 @@
   - This ensures that users are not prompted to verify the remote host SSH key fingerprint before connection to it
 - The `ansible.builtin.authorized_keys` module can be used to copy a control host user public key to the corresponding user account on a managed host
   - To use it, the public key must be in a public location, where it is readable: if it is a hidden directory in the user home directory it cannot be used 
+
+## userkey.yml
+```yml
+---
+- name: create remote management user
+  hosts: ansible2
+  tasks:
+  - name: create user ansible
+    user:
+      name: ansible
+  - name: give them sudo privileges
+    lineinfile:
+      path: /etc/sudoers.d/ansible
+      state: present
+      create: true
+      mode: 0440
+      line: 'ansible ALL=(ALL) NOPASSWD: ALL'
+      validate: /usr/sbin/visudo -cf %s
+  - debug:
+      msg: the remote management user is now created and has sudo privileges
+
+- name: manage user keys
+  hosts: localhost
+  become: true
+  tasks:
+  - name: create a directory to store the file that authorized_keys is goign to distribute
+    file:
+      name: ansiblekey
+      state: directory
+  - name: copy the local user ansible ssh key to this directory
+    shell: 'cat /home/ansible/.ssh/id_rsa.pub > ansible/id_rsa.pub'
+  - debug:
+      msg: the local management user key is now in a place where it can be used
+
+- name: create another remote user with a key
+  hosts: ansible2
+  tasks:
+  - name: copy the management user authorized key to the management host
+    authorized_key:
+      user: ansible
+      key: "{{ lookup('file', './ansiblekey/id_rsa.pub') }}" 
+  - name: create a remote user with an SSH key pair
+    user:
+      name: anna
+      generate_ssh_key: true
+      ssh_key_bits: 2048
+      ssh_key_file: .ssh/ansiblekey_rsa
+```
