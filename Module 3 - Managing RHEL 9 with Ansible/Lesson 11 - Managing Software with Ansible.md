@@ -37,6 +37,12 @@
     state: latest
 ```
 
+## Gathering Package Facts
+- Facts about packages are not gathered by the `ansible.builtin.setup` module
+- To gather facts about packages, use the `ansible.builtin.package_facts` module
+- When gathered, package facts are written to the `ansible_facts['packages']` variable
+- As packages are stored in an array, while addressing the package you need to address the correct array index value, which is `[0]` in many cases
+
 # 11.2 Managing Repositories and Repository Access
 # 11.3 Managing Subscriptions
 # Lesson 11 Lab: Managing Repositories
