@@ -77,4 +77,8 @@
   - `subscription-manager repos list`
   - `subscription-manager repos --enable "repo name"`
 
+## Using Modules to Manage Subscriptions
+- The `redhat_subscription` module enables you to perform subscription and registration in one task
+- The `rhsm_repository` module is used to enable subscription manager repositories 
+
 # Lesson 11 Lab: Managing Repositories
