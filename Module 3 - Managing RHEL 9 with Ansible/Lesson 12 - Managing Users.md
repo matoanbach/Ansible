@@ -81,3 +81,11 @@
   - The encrypted hash of the user password
 - To create an encrypted password, a random salt is used to ensure that two users that have identical passwords would not have identical entries in `/etc/shadow`
 - This salt and the unencrypted password are combine and encrypted, which generates the encrypted hash that is stored in `/etc/shadow`
+
+# 12.4 Creating Encrypted Passwords in Ansible
+- The `ansible.builtin.user` module does not generate encrypted passwords
+- To generate an encrypted password, an external utility must be used to generate an encrypted string
+- Next, the encrypted string can be used in a variable to set the password
+- For enhanced security, store the password hash in a vault encrypted file
+- One method is to use the `password_hash` filter to generate an encrypted password
+- Another option would be to use the `shell` module to run `passwd --stdout` and capture the result of that command in a variable using `register`
