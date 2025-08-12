@@ -13,6 +13,19 @@
   - `ansible.windows.win_package`: manages packages on Windows
 - While managing packages, the recommendation to use the most specific module applies
 - Also realize that package names are not always the same between different distributions
+
+## Managing Package Groups
+- The Linux `dnf` command supports working with package groups
+- Use `dnf group list` to show a list of available groups
+- To install a package group, put a @ in front of the group name:
+
+```yml
+- name: install virtualization software
+  ansible.builtin.dnf:
+    name: '@Virtualization Host'
+    state: present
+```
+
 # 11.2 Managing Repositories and Repository Access
 # 11.3 Managing Subscriptions
 # Lesson 11 Lab: Managing Repositories
