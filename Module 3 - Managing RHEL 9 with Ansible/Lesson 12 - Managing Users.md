@@ -10,3 +10,9 @@
 - Ansible can also be used to manage SSH keys and create sudo configuration
 - For setting passwords, you'll have to ensure that encrypted passwords are generated before providing them to the user module
 
+## User Management Modules Overview
+- `ansible.builtin.user`: manages core user properties
+- `ansible.builtin.group`: creates and manages groups
+- `ansible.builtin.known_hosts`: updates the `/etc/ssh/ssh_known_hosts` file with the host key of a managed host
+- `ansible.builtin.authorized_key`: manages authorized keys for user accounts on managed hosts
+- `ansible.builtin.lineinfile`: used to configure sudo access by adding a line to a configuration file
