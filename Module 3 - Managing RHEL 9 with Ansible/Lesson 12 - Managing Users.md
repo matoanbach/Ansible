@@ -138,3 +138,31 @@
       validate: 'visudo -cf %s'
       mode: 0440
 ```
+
+# Lesson 12 Lab: Managing Users
+- Create a playbook that creates new users interactively
+- The playbook should read the users from the "usernames" variable which may be set in the playbook
+- The playbook should prompt for a password, without the text that the user enters being visible
+
+## lab-12.yml
+```yml
+---
+- name: create some users
+  hosts: all
+  vars:
+    users:
+    - lisa
+    - lucy
+    - lori
+  vars_prompt:
+    name: password
+    prompt: enter a password
+  tasks:
+  - name: create the users
+    user:
+      name: "{{ item }}"
+    loop: "{{ users }}"
+  - name: set the password
+    shell: echo {{ password }} | passwd --stdin {{ user }}
+    loop: "{{ users }}"
+```
