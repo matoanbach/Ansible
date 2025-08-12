@@ -81,4 +81,23 @@
 - The `redhat_subscription` module enables you to perform subscription and registration in one task
 - The `rhsm_repository` module is used to enable subscription manager repositories 
 
+## subscription.yml
+```yml
+---
+- name: use subscription manager to register and setup repos
+  hosts: ansible2
+  tasks:
+  - name: register and subscribe ansible2
+    redhat_subscription:
+      username: bob@example.com
+      password: verysecretpassword
+      state: present
+  - name: configure additional repo access
+    rhsm_repository:
+      name:
+        - rh-gluster-3-client-for-rhel-8-x86_64-rpms
+        - rhel-8-for-x86_64-appstream-debug-rmps
+      state: present
+```
+
 # Lesson 11 Lab: Managing Repositories
