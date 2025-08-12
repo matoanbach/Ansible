@@ -101,3 +101,77 @@
 ```
 
 # Lesson 11 Lab: Managing Repositories
+- Set up a repository on control. This repository should offer multiple packages, including the nmap package.
+- Provide a package list using variables
+- Configure ansible1 and ansible2 to use the repository that is provided through this repository
+- Install nmap package from this repository
+
+##  setup_repo.yml 
+```yaml
+---
+- name: install FTP tp export repo
+  hosts: localhost
+  tasks:
+  - name: install FTP server
+    yum:
+      name: vsftpd
+      state: latest
+  - name: start FTP server
+    service:
+      name: vsftpd
+      state: started
+      enabled: yes
+  - name: open firewall for FTP
+    firewalld:
+      service: ftp
+      state: enabled
+      permanent: yes
+- name: setup the repo directory
+  hosts: localhost
+  tasks:
+  - name: make directory
+    file:
+      path: /var/ftp/repo
+      state: directory
+  - name: download packages
+    yum:
+      name: nmap
+      download_only: yes
+      download_dir: /var/ftp/repo
+  - name: createrepo
+    command: createrepo /var/ftp/repo
+```
+## setup_repo_client.yml
+```yaml
+---
+- name: configure repository
+  hosts: all
+  vars:
+    my_package: nmap
+  tasks:
+  - name: get package facts
+    package_facts:
+      manager: auto
+  - name: show package facts for my_package
+    debug:
+      var: ansible_facts.packages[my_package]
+    when: my_package in ansible_facts.packages
+  - name: connect to example repo
+    yum_repository:
+      name: lesson11
+      description: RHCE9 lesson 11 repo
+      file: lesson 11
+      baseurl: ftp://control.example.local/repo/
+      gpgcheck: yes
+  - name: install package
+    yum:
+      name: "{{ my_package }}"
+      state: present
+  - name: update package facts
+    package_facts:
+      manager: auto
+  - name: show package facts for my_package
+    debug:
+      var: ansible_facts.packages[my_package]
+    when: my_package in ansible_facts.packages
+```
