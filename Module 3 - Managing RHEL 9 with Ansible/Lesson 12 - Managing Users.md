@@ -105,3 +105,10 @@
   - name: setting password
     shell: echo {{ password }} | passwd --stdin {{ user }} 
 ```
+
+# 12.4 Managing Sudo Privileges
+## Managing Sudo
+- Ansible doesn't offer a specific module for managing `sudo` privileges
+- Use generic modules instead:
+  - `ansible.builtin.lineinfile` can be used to manage the `/etc/sudoers.d/whatever` file
+  - `ansible.builtin.template` can be used with a Jinja2 template to generate this file
