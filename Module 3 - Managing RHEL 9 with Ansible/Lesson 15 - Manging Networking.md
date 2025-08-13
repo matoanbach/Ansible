@@ -28,3 +28,25 @@
 - `ansible.posix.firewalld` allows you to create rules for firewalld
 - `ansible.builtin.hostname` allows for setting the hostname
 - These modules can be used with ansible facts as stored in `ansible_facts['intefaces']`
+
+# Lesson 15 Lab: Managing Networking
+- This lab requires ansible2.example.local to be configured with a second interface
+- Use ansible fact filters to find the name of the second network interface on ansible2.example.com
+- Configure a playbook that sets up the IPv6 address fc00::202/64 on the second interface on ansible2.example.com
+
+## lab-15.yml
+```yml
+---
+- name: Manage autoconnect
+  hosts: ansible1 
+  vars:
+    network_connections:
+      - name: ens160
+        type: ethernet
+        ip:
+          address:
+            - fc00::202/64
+
+  roles:
+    - rhel-system-roles.network
+```
