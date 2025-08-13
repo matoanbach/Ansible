@@ -37,3 +37,20 @@
 # 13.2 Scheduling Processes
 - `ansible.posix.at` is used to run a one-time job at a future time
 - `ansible.builtin.cron` is used to run repeating jobs through the Linux cron daemon
+
+## setup-crontab.yml
+```yml
+---
+- name: setup cron job
+  hosts: ansible1
+  tasks:
+  - name: run a cron job
+    cron:
+      name: "write message to file"
+      minute: "*/2"
+      hour: 8-18
+      user: ansible
+      job: echo "entry written at $(date)" >> /tmp/cron-keepalive
+      cron_file: keep-alive-messages
+      state: present
+```
