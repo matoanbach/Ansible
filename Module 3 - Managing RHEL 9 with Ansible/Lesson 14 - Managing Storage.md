@@ -26,6 +26,10 @@
 - Currently, the `community.general` modules are not supported
 - To manage storage devices in a supported way, either use `ansible.builtin.command`, or `redhat.rhel_system_roles.storage` (which are not ideal)
 
+## Using redhat.rhel_system_roles.storage
+- The `storage` role only supports the following
+  - unpartitioned devices, where it creates a file system on the whole disk device (which is a bad idea)
+  - LVM on whole devices
 
 # 14.3 Developing Advanced Playbooks
 # Lesson 14 Lab: Managing Storage
