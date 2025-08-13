@@ -54,3 +54,17 @@
       cron_file: keep-alive-messages
       state: present
 ```
+
+## delete-cronjob.yml
+```yml
+---
+- name: remove a specific cron job
+  hosts: ansible1
+  tasks:
+    - name: remove cron job
+      cron:
+        name: "write message to file"
+        cron_file: keep-alive-messages
+        state: absent
+        user: ansible
+```
