@@ -23,5 +23,9 @@
 ```
 
 # 14.2 Managing Logical Volumes
+- Currently, the `community.general` modules are not supported
+- To manage storage devices in a supported way, either use `ansible.builtin.command`, or `redhat.rhel_system_roles.storage` (which are not ideal)
+
+
 # 14.3 Developing Advanced Playbooks
 # Lesson 14 Lab: Managing Storage
