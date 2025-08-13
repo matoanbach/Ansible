@@ -39,4 +39,9 @@
   - `volumes`: the LVM logical volumes and their properties
 
 # 14.3 Developing Advanced Playbooks
+- To develop advanced Ansible (exam lab) solutions, it's recommended to use a phased approach
+  - First, set up a generic framework that shows how you are going to take care of any conditional task execution. In this phase don't use specific modules but put as much as you can in the `debug` module and focus on structure.
+  - Next, work out the conditionals and facts you may want to check. Still no details about specific modules but check the facts using the `debug` module.
+  - Finally, work out module specifics and produce the working solution. In this phase, consider using tags to allow you to test specific parts only.
+
 # Lesson 14 Lab: Managing Storage
