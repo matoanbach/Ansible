@@ -31,5 +31,12 @@
   - unpartitioned devices, where it creates a file system on the whole disk device (which is a bad idea)
   - LVM on whole devices
 
+## Creating LVM with the Storage Role
+- To use the RHEL system role to create LVM, the `storage_pools` variable must be defined
+- Within `storage_pools` you define the LVM environment, using the following variables:
+  - `name`: the name of the VG
+  - `disks`: the complete disk to use
+  - `volumes`: the LVM logical volumes and their properties
+
 # 14.3 Developing Advanced Playbooks
 # Lesson 14 Lab: Managing Storage
