@@ -5,3 +5,31 @@
 - `ansible.builtin.reboot` will reboot a managed host. It can use a `reboot_timeout` and a `test_command` to verify that the host is available again
 
 - Best Practice: Using the command module is not neccessarily bad. Just configure it to be idempotent
+
+
+## settargetandreboot.yml
+```yml
+---
+- name: change target and reboot
+  hosts: all
+  gather_facts: no
+  vars:
+    default_target: multi-user.target
+  tasks:
+  - name: get current target
+    command:
+      cmd: systemctl get-default
+    changed_when: false
+    register: default
+  - name: set default target
+    command:
+      cmd: systemctl set-default {{ default_target }}
+    when: default_target not in default['stdout']
+    notify: reboot_server
+
+  handlers:
+  - name: reboot_server
+    reboot:
+      test_command: uptime
+      reboot_timeout: 300
+```
