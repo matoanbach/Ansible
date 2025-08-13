@@ -44,4 +44,38 @@
   - Next, work out the conditionals and facts you may want to check. Still no details about specific modules but check the facts using the `debug` module.
   - Finally, work out module specifics and produce the working solution. In this phase, consider using tags to allow you to test specific parts only.
 
+## setup-storage-test.yml
+```yml
+---
+- name: creating storage configuration
+  hosts: all
+  vars_files:
+    - vars/storage.yml
+  tasks:
+    - name: verify partition existence
+      parted:
+        device: /dev/sdb
+        state: present
+        number: "{{ item.numer }}"
+        part_start: "{{ item.start }}"
+        part_end: "{{ item.end }}"
+      loop: "{{ partitions }}"
+    - name: verify VG existence
+      debug:
+        msg: TODO
+      loop: "{{ vgs }}"
+    - name: create LVs if needed
+      debug:
+        msg: TODO
+      loop: "{{ lvs }}"
+      when: true
+    - name: verify XFS filesystem on each LV
+      debug:
+        msg: TODO
+    - name: mount LVs
+      debug:
+        msg: TODO
+      loop: "{{ lvs }}"
+```
+
 # Lesson 14 Lab: Managing Storage
