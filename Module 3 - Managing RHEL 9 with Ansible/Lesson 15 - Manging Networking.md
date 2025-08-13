@@ -23,3 +23,8 @@
   roles:
     - rhel-system-roles.network
 ```
+
+# 15.2 Managing Network Settings with Facts and Modules
+- `ansible.posix.firewalld` allows you to create rules for firewalld
+- `ansible.builtin.hostname` allows for setting the hostname
+- These modules can be used with ansible facts as stored in `ansible_facts['intefaces']`
