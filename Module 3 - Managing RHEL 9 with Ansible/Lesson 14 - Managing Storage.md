@@ -117,3 +117,62 @@
 ```
 
 # Lesson 14 Lab: Managing Storage
+- Tasks in this playbook should only be executed on hosts where a second hard disk is installed
+- If no second hard disk exists, the playbook should print "second hard disk not present" and stop executing tasks on that host
+- Configure the device with one partition including all available disk space
+- Create an LVM volume group with the name vgfiles
+- If the volume group is bigger thatn 5 GB, create an LVM logical volume with the name lvfiles and a size of 5 GB. Note that you must check the LVM Volume Group size and not the /dev/sdb size, because in theory you can have multiple block devices in a volume group.
+- If the volume group is equal to or smaller than 5 GB, create an LVM logical volume with the name lvfiles and a size of 3 GB.
+- Format the volume with XFS filesystem
+- Mount on the /files directory
+
+## storage-advanced.yml
+```yml
+---
+- name: set up hosts that have an sdb device
+  hosts: all
+  tasks:
+  - name: getting out with a nice failure message if there is no second disk
+    fail:
+      msg: there is no second disk
+    when: ansible_facts['devices']['sdb'] is not defined
+  - name: create a partition
+    parted:
+      device: /dev/sdb
+      number: 1
+      state: present
+  - name: create a volume group
+    lvg:
+      pvs: /dev/sdb1
+      vg: vgfiles
+  - name: run the setup module so that we can use updated facts
+    setup:
+  - name: get vg size and convert to integer in new variable
+    set_fact:
+      vgsize: "{{ ansible_facts['lvm']['vgs']['vgfiles']['size_g'] | int }}"
+  - name: show vgsize value
+    debug:
+      var: "{{ vgsize }}"
+  - name: create an LVM on big volume groups
+    lvol:
+      vg: vgfiles
+      lv: lvfiles
+      size: 6g
+    when: vgsize | int > 5
+  - name: create an LVM on small volume groups
+    lvol:
+      vg: vgfiles
+      lv: lvfiles
+      size: 3g
+    when: vgsize | int <= 5
+  - name: formatting the XFS filesystem
+    filesystem:
+      dev: /dev/vgfiles/lvfiles
+      fstype: xfs
+  - name: mounting /dev/vgfiles/lvfiles
+    mount:
+      path: /files
+      state: mounted
+      src: /dev/vgfiles/lvfiles
+      fstype: xfs
+```
