@@ -1,0 +1,7 @@
+# 15.1 Using Roles for Network Management
+- The `redhat.rhel_system_roles.network` system role allows for the configuration of network related settings
+- After installing the `rhel-system-roles.rpm` package, many examples are provided in the `/usr/share/doc/rhel-system-roles` directory
+- Based on these examples, many different network interface types can be configured
+- To configure the role, the `network_provider` and the `network_connections` variables must be set
+  - `network_provider` variables must be set
+  - `network_connection` defines the network connection and its properties
