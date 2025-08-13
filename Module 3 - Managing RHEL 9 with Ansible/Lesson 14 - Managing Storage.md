@@ -7,6 +7,21 @@
 - `community.general.filesystem` can be used to create filesystems on the new devices
 - Notice that the community.general content collection is unsupported. Use the `redhat.rhel_system_roles.storage` role if you want to use a supported solution 
 
+## create_partition.yml
+```yml
+---
+- name: create partition
+  hosts: all
+  tasks:
+  - name: create partition
+    parted:
+      device: /dev/sdb
+      number: 1
+      state: present
+      part_end: 4GiB
+    when: ansible_facts['devices']['sdb'] is defined
+```
+
 # 14.2 Managing Logical Volumes
 # 14.3 Developing Advanced Playbooks
 # Lesson 14 Lab: Managing Storage
