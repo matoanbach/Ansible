@@ -68,3 +68,41 @@
         state: absent
         user: ansible
 ```
+
+# Lesson 13 Lab: Managing the Default Target
+- Set the default boot state of the managed servers to multi-user.target
+- Reboot your server after doing so
+- Configure your playbook such that it will show the message "successfully rebooted" once it is available again
+
+## lab-13.yml
+```yml
+---
+- name: playbook for lab13
+  hosts: all
+  vars:
+    default_target: multi-user.target
+  tasks:
+  - name: get the default boot state
+    command:
+      cmd: systemctl get-default
+    changed_when: false
+    register: default
+
+  - name: set default target
+    command:
+      cmd: systemctl set-default {{ default_target }}
+    when: default_target not in default['stdout']
+    notify: 
+      - reboot_server
+      - print_message
+
+  handlers:
+    - name: reboot_server
+      reboot:
+        test_command: uptime
+        reboot_timeout: 300
+
+    - name: print_message
+      debug:
+        msg: successfully rebooted
+```
