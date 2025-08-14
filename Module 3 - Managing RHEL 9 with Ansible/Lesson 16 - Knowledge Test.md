@@ -180,6 +180,28 @@ curl localhost:/reposerver
 
 
 # 16.5 Setting up Repository Clients
+## Task 4: Setting up Repository
+- Configure all nodes as repository clients to the repository server that was configured in the previous task
+
+## Task 4: Solution
+```yml
+---
+- name: setup repo clients
+  hosts: all
+  tasks:
+  - name: setting up custom repos
+    yum_repository:
+        name: installdisk
+        description: local control repos 
+        file: installdisk
+        baseurl: https://control.example.local/reposerver
+        gpgcheck: no
+```
+
+## Task 4: testing solution
+```bash
+ansible all -a "yum repolist"
+```
 # 16.6 Installing Collections
 # 16.7 Generating an /etc/hosts file
 # 16.8 Creating a Vault Encrypted File
