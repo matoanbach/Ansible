@@ -23,6 +23,21 @@
 - If running RHEL 9, make sure your control host is (manually) registered using subscription manager.
 - Ensure that the httpd package is copied to the control host while installing (or after installation)
 
+## Task 1: Solution
+```yml
+sudo subscription-manager register
+sudo subscription-manager attach
+sudo dnf repolist
+vim /etc/hosts
+# add the below to /etc/hosts
+192.168.29.199 control.example.com control
+192.168.29.191 ansible1.example.com ansible1
+192.168.29.192 ansible2.example.com ansible2
+# exit /etc/hosts
+ssh ansible1
+ssh ansible2
+```
+
 # 16.3 Configuring the Control Node
 # 16.4 Setting up a Repository Server
 # 16.5 Setting up Repository Clients
