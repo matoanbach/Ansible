@@ -245,6 +245,28 @@ collections:
 - Store this password in the file vaultpass.txt in the current project directory.
 - Ensure that the decrypted contents of the file can be shown using a vault password file
 
+## Task 7: Solution
+### task7file.yml
+```yml
+users:
+    - username: anna
+      pwd: secretpass
+      grp: profs
+    - username: anouk
+      pwd: password
+      grp: students
+    - username: lisa
+      pwd: verysecretpass
+      grp: profs
+    - username: linda
+      pwd: notsosecretpass
+      grp: students
+```
+
+```bash
+ansible-vault encrypt task7file.yml
+echo mypassword > vaultpass.txt
+```
 
 # 16.9 Creating Users
 # 16.10 Creating a Role
