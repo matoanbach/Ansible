@@ -218,6 +218,27 @@ collections:
 ## Task 6: Generating an /etc/hosts File
 - Use an automated solution to create the contents of the /etc/hosts file on all managed hosts based on information that was found from the inventory.
 
+## Task 6: Solution
+### hosts.j2
+```yml
+{% for host in groups['all'] %}
+{{ hostvars[host]['ansible_facts']['default_ipv4']['address']}} {{ hostvars[host]['ansible_facts']['fqdn'] }} {{ hostvars[host]['ansible_facts']['hostname'] }}
+{% endfor %}
+
+```
+
+### task-6.yml
+```yml
+---
+- name: create hosts file
+  hosts: all
+  tasks:
+  - name: using template
+    template:
+        src: hosts.j2
+        dest: /etc/hosts
+```
+
 # 16.8 Creating a Vault Encrypted File
 # 16.9 Creating Users
 # 16.10 Creating a Role
