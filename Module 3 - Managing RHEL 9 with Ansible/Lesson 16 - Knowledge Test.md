@@ -203,6 +203,17 @@ curl localhost:/reposerver
 ansible all -a "yum repolist"
 ```
 # 16.6 Installing Collections
+## Task 5: Installing Collections
+- Use a requirements.yml file to install the following collections:
+  - community.general
+  - ansible.posix
+
+## Task 5: Solution
+```yml
+collections:
+    - community.general
+    - ansible.posix
+```
 # 16.7 Generating an /etc/hosts file
 # 16.8 Creating a Vault Encrypted File
 # 16.9 Creating Users
