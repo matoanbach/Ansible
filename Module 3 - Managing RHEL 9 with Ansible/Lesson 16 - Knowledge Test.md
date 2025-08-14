@@ -240,6 +240,12 @@ collections:
 ```
 
 # 16.8 Creating a Vault Encrypted File
+## Task 7: Creating a Vault Encrypted File
+- Encrypt the file task7file.yml with ansible vault, using the password "mypassword"
+- Store this password in the file vaultpass.txt in the current project directory.
+- Ensure that the decrypted contents of the file can be shown using a vault password file
+
+
 # 16.9 Creating Users
 # 16.10 Creating a Role
 # 16.11 Creating a Cron Job
