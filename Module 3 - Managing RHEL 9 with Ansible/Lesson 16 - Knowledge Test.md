@@ -54,6 +54,64 @@ ssh ansible2
   - The default location for collections is the directory colections in the user ansible home directory.
   - The default location for roles is the directory roles in the user ansible home directory.
 
+## Task 2: Solution
+```yml
+sudo subscription-manager repos --enable=rhel-9-for-x86_64-appstream.rpms
+sudo dnf repolist
+sudo subscription-manager repos --enable=ansible-automation-platform-2.2-for-rhel-9-x86_64-rpms
+sudo dnf install ansible-core ansible-navigator -y
+sudo dnf install httpd -y
+ansible --version
+```
+
+```yml
+sudo useradd ansible
+sudo passwd ansible
+su - ansible
+vim inventory
+# edit inventory
+[dev]
+ansible1
+
+[prod]
+ansible2
+
+[servers:children]
+prod
+dev
+# exit inventory
+
+ansible -i inventory all -u student -k -b -K -m user -a "name=ansible"
+ssh ansible1
+ssh ansible2
+ansible -i inventory all -u student -k -b -K -m shell -a "echo passwd | passwd --stdin ansible" 
+
+ssh-keygen
+for i in ansible1 ansible2; do ssh-copy-id $i; done
+```
+
+```yml
+ansible -i inventory all -m command -a "whoami"
+ansible -i inventory all -u student -k -b -K -m copy -a "content='ansible ALL=(ALL) NOPASSWD: ALL' dest=/etc/sudoers.d/ansible"
+ansible -i inventory all -b -a "ls -l /root"
+sudo vim /etc/ansible/ansible.cfg
+vim ansible.cfg
+# edit ansible.cfg
+[defaults]
+inventory = inventory
+remote_user = ansible
+ask_pass = false
+collections_path = collections:/usr/share/ansible/collections
+roles_path = roles:/usr/share/ansible/roles:/etc/ansible/roles
+
+[privilege_escalation]
+become = true
+become_method = sudo
+become_user = root
+become_ask_pass = false
+# exit ansible.cfg
+```
+
 # 16.4 Setting up a Repository Server
 # 16.5 Setting up Repository Clients
 # 16.6 Installing Collections
