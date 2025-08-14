@@ -215,6 +215,9 @@ collections:
     - ansible.posix
 ```
 # 16.7 Generating an /etc/hosts file
+## Task 6: Generating an /etc/hosts File
+- Use an automated solution to create the contents of the /etc/hosts file on all managed hosts based on information that was found from the inventory.
+
 # 16.8 Creating a Vault Encrypted File
 # 16.9 Creating Users
 # 16.10 Creating a Role
