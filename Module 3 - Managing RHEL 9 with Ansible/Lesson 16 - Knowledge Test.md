@@ -12,6 +12,17 @@
 - All tasks expect you to create a working solution. If needed, install packages, create users, start services, and more to ensure the playbook solution will work.
 
 # 16.2 Setting up the Environment
+## Task 1: Setting up the Environment
+- To work through the assignments in this exam, you need the following:
+  - 3 virtual machines running either RHEL 9 or CentOS Stream:
+    - A control host
+    - A node1 host
+    - A node2 host
+- Add a second disk to node1, not node2
+- Install with GUI on the control host and use the minimal installation pattern on the other nodes
+- If running RHEL 9, make sure your control host is (manually) registered using subscription manager.
+- Ensure that the httpd package is copied to the control host while installing (or after installation)
+
 # 16.3 Configuring the Control Node
 # 16.4 Setting up a Repository Server
 # 16.5 Setting up Repository Clients
