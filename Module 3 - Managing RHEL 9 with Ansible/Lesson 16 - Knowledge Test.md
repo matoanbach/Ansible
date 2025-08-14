@@ -119,6 +119,66 @@ become_ask_pass = false
 - Provide the contents of these two directories as symbolic links in the Apache server documentroot (/var/www/html)
 - Ensure that the Apache server is installed and started automatically, and is available through the firewall.
 
+## Task 3: Solution
+### setup_repo.yml
+```yml
+---
+- name: install apache to export repo
+  hosts: localhost
+  tasks:
+  - name: install apache server
+    yum:
+        name: 
+        - httpd
+        - policycoreutils-python-utils
+        state: latest
+  - name: start apache server
+    service:
+        name: httpd
+        state: started
+        enabled: yes
+  - name: open firewall
+    firewalld:
+        service: http
+        state: enabled
+        permanent: true
+
+- name: setup the repo directory
+  hosts: localhost
+  tasks:
+  - name: create /reposerver
+    file:
+        path: /reposerver
+        state: directory
+  - name: make links to repo directories
+    file:
+        src: /reposerver
+        dest: /var/www/html/reposerver
+        state: link
+  - debug:
+        msg: you need to manually copy content from the installation iso to /reposerver/
+  - name: setup selinux context
+    sefcontext:
+        target: '/reposerver(/.*)?'
+        setype: httpd_sys_content_t
+        state: present
+  - name: run restorecon
+    command: restorecon -Rv /reposerver
+```
+
+```bash
+ansible-playbook setup_repo.yml -e ansible_python_interpreter=/usr/bin/python
+```
+
+## Mounting locally
+```bash
+mount /dev/sr0 /mnt
+sudo cp -R  /mnt/[AB]/* /reposerver/
+systemctl restart httpd
+curl localhost:/reposerver
+```
+
+
 # 16.5 Setting up Repository Clients
 # 16.6 Installing Collections
 # 16.7 Generating an /etc/hosts file
