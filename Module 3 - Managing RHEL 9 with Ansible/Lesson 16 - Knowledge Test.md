@@ -113,6 +113,12 @@ become_ask_pass = false
 ```
 
 # 16.4 Setting up a Repository Server
+## Task 3: Setting up a Repository Server
+- Configure the control node to host the contents of the RHEL 9 installation
+- Ensure the repository content is copoed to /reposerver/BaseOS and /reposerver/AppStream
+- Provide the contents of these two directories as symbolic links in the Apache server documentroot (/var/www/html)
+- Ensure that the Apache server is installed and started automatically, and is available through the firewall.
+
 # 16.5 Setting up Repository Clients
 # 16.6 Installing Collections
 # 16.7 Generating an /etc/hosts file
