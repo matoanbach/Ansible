@@ -39,6 +39,21 @@ ssh ansible2
 ```
 
 # 16.3 Configuring the Control Node
+## Task 2: Configuring the Control Node
+- Install the Ansible software on the control node
+- Create a user ansible on all nodes, and ensure that:
+  - Use ansible has sudo privileges on all nodes
+  - Use ansible can remote login using SSH keys
+- Create an inventory file that meets the following requirements:
+  - A host group with the name dev is created, and node1 is a member of this group
+  - A host group with the name prod is created, and node2 is a member of this group
+  - A host group with the name servers is created, and has the groups prod and dev as its members
+- In control host user ansible homedirectory, create an ansible.cfg that meets the following requirements:
+  - It refers to the inventory file in the current directory
+  - privilege escalation is defined. The mechanism is sudo, no passwords should be asked
+  - The default location for collections is the directory colections in the user ansible home directory.
+  - The default location for roles is the directory roles in the user ansible home directory.
+
 # 16.4 Setting up a Repository Server
 # 16.5 Setting up Repository Clients
 # 16.6 Installing Collections
